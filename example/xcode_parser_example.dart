@@ -60,3 +60,36 @@ void addFramework(Pbxproj project) {
   );
   project.add(frameworksGroup);
 }
+
+final project = Pbxproj(
+  path: 'example.pbxproj',
+  children: [
+    MapPbx(
+      uuid: '12459B9B277D272A45EDBC24',
+      children: [
+        MapEntryPbx('baseEntry', VarPbx('example')),
+        MapEntryPbx('name', VarPbx('"val"')),
+        MapPbx(
+          uuid: 'buildSettings',
+          children: [
+            MapEntryPbx('EX_ENTRY_VAL', VarPbx('val')),
+            MapEntryPbx('EX_ENTRY_STRING', VarPbx('"string_val"')),
+          ],
+        ),
+      ],
+    ),
+    ListPbx(
+      'B1016741719B432C10A504E8',
+      [
+        ElementOfListPbx(
+          'DE9302C66A7999063CB76C6D',
+          comment: 'Comment.ext',
+        ),
+        ElementOfListPbx(
+          'C43FE36031339AEC89A9EC36',
+          comment: 'Comment',
+        ),
+      ],
+    )
+  ],
+);
