@@ -8,6 +8,14 @@ import 'package:xcode_parser/src/pbxproj/map/section_pbx.dart';
 import 'package:xcode_parser/src/pbxproj/other/comment_pbx.dart';
 import 'package:xcode_parser/src/pbxproj/pbxproj.dart';
 
+/// The function is named [parsePbxproj] and it takes three parameters:
+/// [content] of type [String], [path] of type [String], and an optional
+/// parameter [debug] of type [bool] with a default value of [false].
+/// The function returns a value of type [Pbxproj].
+///
+/// The purpose of this function is to parse the [content] string and
+/// create a [Pbxproj] object based on the provided [path]. The debug parameter
+/// is used for debugging purposes and is set to 'false' by default.
 Pbxproj parsePbxproj(String content, String path, {bool debug = false}) {
   printD(Object? object) {
     if (debug) {

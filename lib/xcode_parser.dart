@@ -9,5 +9,3 @@ export 'package:xcode_parser/src/pbxproj/map/map_pbx.dart';
 export 'package:xcode_parser/src/pbxproj/map/section_pbx.dart';
 export 'package:xcode_parser/src/pbxproj/other/comment_pbx.dart';
 export 'package:xcode_parser/src/pbxproj/pbxproj.dart';
-
-// TODO: Export any libraries intended for clients of this package.

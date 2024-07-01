@@ -1,3 +1,7 @@
+![Logo](xc_parser_logo.png "Logo Title")
+
+
+
 # Xcode Parser
 
 Xcode Parser is a package for working with Xcode project files (.pbxproj). This package allows you to read, modify, and save changes in .pbxproj files, which is especially useful for automating iOS development tasks.
@@ -12,7 +16,7 @@ Xcode Parser is a package for working with Xcode project files (.pbxproj). This 
 Incorporate the package into your Dart or Flutter project by adding it as a dependency in your `pubspec.yaml` file:
 ```yaml
 dependencies:
-  dart_pbxproj_parser: ^0.1.0
+  xcode_parser: ^0.1.0
 ```
 
 ## Usage Examples
@@ -56,6 +60,18 @@ void main() async {
   var project = await Pbxproj.open('ios/Runner.xcodeproj/project.pbxproj');
   addBuildConfiguration(project);
   await project.save();
+  print(project);
+  
+  // Output
+  
+  // !$*UTF8*$!
+  // {
+  // 	1BEF875CE226FE2D4C9AA516 = {
+  // 		isa = XCBuildConfiguration;
+  // 		name = "CustomDebug";
+  // 		buildSettings = {SWIFT_VERSION = 5.0; IPHONEOS_DEPLOYMENT_TARGET = 12.0; };
+  // 	};
+  // }
 }
 
 void addBuildConfiguration(Pbxproj project) {
@@ -81,17 +97,26 @@ void addBuildConfiguration(Pbxproj project) {
 Creating and Using a List
 
 ```dart
+// B1016741719B432C10A504E8 = {
+// 	isa = PBXGroup;
+// 	children = (
+// 		DE9302C66A7999063CB76C6D /* FrameworkName.framework */,
+// 		C43FE36031339AEC89A9EC36 /* Framework2Name.framework */,
+// 	);
+// };
 void addFramework(Pbxproj project) {
-  var uuid = project.generateUuid();
-  var frameworks = ListPbx('children', [
-    ElementOfListPbx(uuid, comment: 'FrameworkName.framework'),
-  ]);
-  
-  var frameworksGroup = MapPbx(
-    uuid: project.generateUuid(),
+  final uuidMap = project.generateUuid();
+  final uuidFrameworkName = project.generateUuid();
+  final uuidFramework2Name = project.generateUuid();
+
+  final frameworksGroup = MapPbx(
+    uuid: uuidMap,
     children: [
       MapEntryPbx('isa', VarPbx('PBXGroup')),
-      frameworks,
+      ListPbx('children', [
+        ElementOfListPbx(uuidFrameworkName, comment: 'FrameworkName.framework'),
+        ElementOfListPbx(uuidFramework2Name, comment: 'Framework2Name.framework'),
+      ]),
     ],
   );
   project.add(frameworksGroup);
