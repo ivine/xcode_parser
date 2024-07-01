@@ -51,36 +51,35 @@ dart pub add xcode_parser
 ### Pbxproj
 
 
-- Читать и анализировать данные проекта.
-- Вносить изменения в конфигурацию проекта.
-- Сохранять модификации обратно в файл .pbxproj, обеспечивая актуализацию проекта в соответствии с внесенными изменениями.
-
+- Read and analyze project data.
+- Make changes to the project configuration.
+- Save modifications back to the .pbxproj file, ensuring the project is updated according to the changes made.
 #### Methods
 
 ##### Note:
 ```
-`open` может занимать несколько секунд, 
-если ваша программа должна продолжать работу 
-во время парсинга, рекомендуется использовать 
-изоляты для предотвращения блокировки основного потока
+`open` may take a few seconds, 
+if your program needs to continue working 
+during parsing, it is recommended to use 
+isolates to prevent blocking the main thread.
 ```
 
-- `static Future<Pbxproj> open(String path)` - Открывает и анализирует файл .pbxproj по указанному пути. Параметр `path` -  путь к файлу .pbxproj.  Возвращает: `Future<Pbxproj>` — асинхронный результат, который содержит экземпляр `Pbxproj` после чтения и анализа файла.
-- `Future<void> save()` - Сохраняет текущее состояние объекта `Pbxproj` обратно в файл .pbxproj.
-- `String generateUuid()` - Генерирует уникальный идентификатор (UUID), который может быть использован для новых компонентов проекта.
-- `void add(NamedComponent component)` - Добавляет новый компонент в проект.
-- `void remove(String uuid)` - Удаляет компонент из проекта по его UUID.
-- `void replaceOrAdd(NamedComponent component)` - Заменяет существующий компонент в проекте или добавляет новый, если компонент с таким UUID не найден.
-- `NamedComponent? operator [](String key)` - Позволяет получить доступ к компоненту по его UUID.
+- `static Future<Pbxproj> open(String path)` - Opens and analyzes the .pbxproj file at the specified path. Parameter path - path to the .pbxproj file. Returns: Future<Pbxproj> — an asynchronous result that contains an instance of Pbxproj after reading and analyzing the file.
+- `Future<void> save()` - Saves the current state of the Pbxproj object back to the .pbxproj file.
+- `String generateUuid()` - Generates a unique identifier (UUID), which can be used for new project components.
+- `void add(NamedComponent component)` - Adds a new component to the project.
+- `void remove(String uuid)` - Removes a component from the project by its UUID.
+- `void replaceOrAdd(NamedComponent component)` - Replaces an existing component in the project or adds a new one if a component with such UUID is not found.
+- `NamedComponent? operator [](String key)` - Allows access to a component by its UUID.
 
 #### Example
 
 ```dart
 void main() async {
-  // Загрузка проекта
+  // Load the project
   var project = await Pbxproj.open('path/to/Runner.xcodeproj/project.pbxproj');
 
-  // Добавление новой конфигурации сборки
+  // Add a new build configuration
   var uuid = project.generateUuid();
   var config = MapPbx(
     uuid: uuid,
@@ -98,36 +97,34 @@ void main() async {
   );
   project.add(config);
 
-  // Сохранение изменений
+  // Save changes
   await project.save();
 }
 ```
 
 ### SectionPbx
 
-`SectionPbx` — это специализированный компонент в рамках библиотеки 
-xcode_parser, который управляет разделами в файлах проекта Xcode 
-(*.pbxproj). Разделы в таких файлах обычно содержат группы 
-связанных элементов, таких как файлы исходного кода, конфигурации 
-сборки, ресурсы и т.д.
+`SectionPbx` is a specialized component within the xcode_parser
+library that manages sections in Xcode project files (`*.pbxproj`). 
+Sections in such files usually contain groups of related elements, such 
+as source files, build configurations, resources, etc.
 
 #### Methods
 
-- `void add(NamedComponent component)` - Добавляет новый компонент в секцию.
-- `void remove(String uuid)` - Удаляет компонент из секции по его UUID.
-- `NamedComponent? find(String uuid)` - Поиск компонента в секции по его UUID.
-- `replaceOrAdd(NamedComponent component)` - Заменяет существующий компонент в разделе или добавляет новый, если компонент с таким UUID не найден.
-- `find<T extends NamedComponent>(String key)` - Ищет компонент в разделе по его UUID и возвращает его, если он найден. Возвращает `null`, если компонент не найден.
-- `findComment<T extends NamedComponent>(String comment)` - Ищет компонент по комментарию. Это полезно, если компоненты были помечены комментариями для дальнейшей идентификации.
-
+- `void add(NamedComponent component)` - Adds a new component to the section.
+- `void remove(String uuid) - Removes` a component from the section by its UUID.
+- `NamedComponent? find(String uuid)` - Searches for a component in the section by its UUID.
+- `replaceOrAdd(NamedComponent component)` - Replaces an existing component in the section or adds a new one if a component with such UUID is not found.
+- `find<T extends NamedComponent>(String key)` - Searches for a component in the section by its UUID and returns it if found. Returns null if the component is not found.
+- `findComment<T extends NamedComponent>(String comment)` - Searches for a component by comment. This is useful if components have been marked with comments for further identification.
 #### Example
 
 ```dart
 void main() {
-  // Создание раздела для настроек сборки
+  // Create a section for build settings
   var buildConfigs = SectionPbx(name: 'XCBuildConfiguration');
 
-  // Добавление настройки сборки для режима отладки
+  // Add a build setting for debug mode
   buildConfigs.add(MapPbx(
     uuid: 'debugConfig',
     children: [
@@ -136,23 +133,24 @@ void main() {
     ],
   ));
 
-  // Вывод информации о разделе
+  // Output information about the section
   print(buildConfigs);
 }
 ```
 
 ### MapPbx
 
-`MapPbx` — это компонент библиотеки `xcode_parser`, предназначенный для 
-управления маппингами в файлах проекта Xcode (`*.pbxproj`). 
+`MapPbx` is a component of the `xcode_parser` library designed to 
+manage mappings in Xcode project files (`*.pbxproj`).
+
 #### Methods
 
-- `void add(NamedComponent component)` - Добавляет новый компонент в маппинг.
-- `void remove(String uuid)` - Удаляет компонент из маппинга по его UUID.
-- `NamedComponent? find(String uuid)` - Поиск компонента в маппинге по его UUID и возвращает его, если он найден. Возвращает `null`, если компонент не найден.
-- `replaceOrAdd(NamedComponent component)` - Заменяет существующий компонент в маппинге или добавляет новый, если компонент с таким UUID не найден.
-- `find<T extends NamedComponent>(String key)` - Ищет компонент в маппинге по его UUID и возвращает его, если он найден. Возвращает `null`, если компонент не найден.
-- `findComment<T extends NamedComponent>(String comment)` - Ищет компонент по комментарию. Это полезно, если компоненты были помечены комментариями для дальнейшей идентификации.
+- `void add(NamedComponent component)` - Adds a new component to the mapping.
+- `void remove(String uuid)` - Removes a component from the mapping by its UUID.
+- `NamedComponent? find(String uuid)` - Searches for a component in the mapping by its UUID and returns it if found. Returns null if the component is not found.
+- `replaceOrAdd(NamedComponent component)` - Replaces an existing component in the mapping or adds a new one if a component with such UUID is not found.
+- `find<T extends NamedComponent>(String key)` - Searches for a component in the mapping by its UUID and returns it if found. Returns null if the component is not found.
+- `findComment<T extends NamedComponent>(String comment)` - Searches for a component by comment. This is useful if components have been marked with comments for further identification.
 
 #### Example
 
