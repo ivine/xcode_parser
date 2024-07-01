@@ -1,6 +1,6 @@
 name: xcode_parser
 description: Xcode Parser is a package for working with Xcode project files (.pbxproj). This package allows you to read, modify, and save changes in .pbxproj files, which is especially useful for automating iOS development tasks.
-version: 1.0.2
+version: 1.0.3
 repository: https://github.com/EclipseAndrey/xcode_parser
 homepage: https://github.com/EclipseAndrey/xcode_parser
 

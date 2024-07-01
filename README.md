@@ -106,10 +106,10 @@ void addObjectToProject(Pbxproj project) {
   var newObject = MapPbx(uuid: '000000000000000000000000');
 
   var group = project.find<MapPbx>(groupUuid);
-  group?.children.add(ElementOfListPbx(newObject));
+  group?.add(ElementOfListPbx(newObject));
 
   print(group.childrenList); // List of children
-  print(group.childrenList); // HashMap<uuid, PbxprojComponent>
+  print(group.childrenMap); // HashMap<uuid, PbxprojComponent>
   
   final value = group['nameOfValue'];
   
