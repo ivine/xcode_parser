@@ -1,5 +1,4 @@
 import 'package:test/test.dart';
-import 'package:xcode_parser/src/pbxproj/interfaces/base_components.dart';
 import 'package:xcode_parser/xcode_parser.dart';
 
 void main() {
