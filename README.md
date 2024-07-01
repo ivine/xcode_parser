@@ -1,4 +1,4 @@
-![Logo](xc_parser_logo.png "Logo Title")
+![Logo](xc_logo_big.png "Logo Title")
 
 
 
