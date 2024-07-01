@@ -1,0 +1,19 @@
+// !$*UTF8*$!
+{
+	12459B9B277D272A45EDBC24 = {
+		baseEntry = example;
+		name = "val";
+		buildSettings = {EX_ENTRY_VAL = val; EX_ENTRY_STRING = "string_val"; };
+	};
+	B1016741719B432C10A504E8 = (
+		DE9302C66A7999063CB76C6D /* Comment.ext */,
+		C43FE36031339AEC89A9EC36 /* Comment */,
+	);
+}
+
+
+
+
+
+
+

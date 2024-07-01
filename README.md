@@ -1,4 +1,4 @@
-![Logo](xc_logo_big.png "Logo Title")
+![Logo](xc_logo_big.png "XC Parser")
 
 
 
@@ -10,6 +10,8 @@ Xcode Parser is a package for working with Xcode project files (.pbxproj). This 
 - Reading and analyzing the contents of .pbxproj files.
 - Modifying project settings and configurations.
 - Saving changes to .pbxproj files.
+
+![Example](xc_example.png "Example")
 
 ## Installation
 
