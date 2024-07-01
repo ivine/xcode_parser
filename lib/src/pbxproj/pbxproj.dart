@@ -54,6 +54,9 @@ class Pbxproj extends ChildrenComponent {
   /// the content of the file and returns a [Pbxproj] object.
   static Future<Pbxproj> open(String path) async {
     final file = File(path);
+    if (!await file.exists()) {
+      await file.create();
+    }
     final content = await file.readAsString();
     if (content.isEmpty) {
       return Pbxproj(path: path);
@@ -66,6 +69,9 @@ class Pbxproj extends ChildrenComponent {
   /// the result of calling the [toString] method into the file asynchronously.
   Future<void> save() async {
     final file = File(path);
+    if (!await file.exists()) {
+      await file.create();
+    }
     await file.writeAsString(toString());
   }
 
@@ -81,8 +87,7 @@ class Pbxproj extends ChildrenComponent {
   String generateUuid() {
     const chars = '0123456789ABCDEF';
     final rand = Random();
-    final uuid =
-        List.generate(24, (index) => chars[rand.nextInt(chars.length)]).join();
+    final uuid = List.generate(24, (index) => chars[rand.nextInt(chars.length)]).join();
     return _checkUuid(uuid);
   }
 
