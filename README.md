@@ -15,11 +15,10 @@ Xcode Parser is a package for working with Xcode project files (.pbxproj). This 
 - Modifying project settings and configurations.
 - Saving changes to .pbxproj files.
 
-<p align="center">
-    <a href="https://pub.dev/packages/xcode_parser/exampler" align="center">
-        <img src="https://github.com/EclipseAndrey/xcode_parser/blob/main/xc_example.png?raw=true" width="4000px">
-    </a>
-</p>
+
+| Dart                                                                                           | .pbxproj                                                                              |
+|------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------|
+| ![before](https://github.com/EclipseAndrey/xcode_parser/blob/main/screen_xc_dart.png?raw=true) | ![before](https://github.com/EclipseAndrey/xcode_parser/blob/main/sc_xc.png?raw=true) |
 
 ## Installation
 
