@@ -1,24 +1,22 @@
 # Xcode Parser
 
-Xcode Parser — это пакет для работы с файлами проекта Xcode (.pbxproj). Пакет позволяет читать, модифицировать и сохранять изменения в .pbxproj файлах, что особенно полезно для автоматизации задач разработки под iOS.
+Xcode Parser is a package for working with Xcode project files (.pbxproj). This package allows you to read, modify, and save changes in .pbxproj files, which is especially useful for automating iOS development tasks.
+## Features
 
-## Особенности
+- Reading and analyzing the contents of .pbxproj files.
+- Modifying project settings and configurations.
+- Saving changes to .pbxproj files.
 
-- Чтение и анализ содержимого .pbxproj файлов.
-- Модификация проектных настроек и конфигураций.
-- Сохранение изменений в .pbxproj файл.
+## Installation
 
-## Установка
-
-Подключите пакет в вашем проекте Dart или Flutter, добавив зависимость в ваш `pubspec.yaml` файл:
-
+Incorporate the package into your Dart or Flutter project by adding it as a dependency in your `pubspec.yaml` file:
 ```yaml
 dependencies:
   dart_pbxproj_parser: ^0.1.0
 ```
 
-## Примеры использования
-### Открытие и сохранение .pbxproj файла
+## Usage Examples
+### Opening and Saving a .pbxproj File
 
 ```dart
 import 'package:dart_pbxproj_parser/pbxproj.dart';
@@ -28,28 +26,28 @@ void main() async {
   await project.save();
 }
 ```
-### Доступные операторы и методы
+### Available Methods and Operators
 
-- `String toString()`, Преобразует в конечный результат
+- `String toString()`, Converts to a final result.
 
-- `PbxprojComponent copyWith();`, Копирует создавая новый объект
+- `PbxprojComponent copyWith();`, Copies by creating a new object.
 
-- `T? find<T extends NamedComponent>(String key);`, ищет компонент по ключу в списке
+- `T? find<T extends NamedComponent>(String key);`, Searches for a component by key in the list.
 
 
-- `T? findComment<T extends NamedComponent>(String comment);`, ищет компонент по комментарию в списке
+- `T? findComment<T extends NamedComponent>(String comment);`, Searches for a component by comment in the list.
 
-- `void add(NamedComponent component);`, добавляет компонент в объект
+- `void add(NamedComponent component);`, Adds a component to the object.
 
-- `void replaceOrAdd(NamedComponent component);`, заменяет компонент, если он существует или добавляет в объект
+- `void replaceOrAdd(NamedComponent component);`, Replaces a component if it exists or adds it to the object.
 
-- `void remove(String uuid);`, удаляет компонент из объекта по uuid
+- `void remove(String uuid);`, Removes a component from the object by uuid.
 
-- `NamedComponent? operator [](String key);`, ищет компонент по uuid в HashMap
+- `NamedComponent? operator [](String key);`, Searches for a component by uuid in HashMap.
 
-### Объекты
+### Objects
 
-Создание и добавление объектов
+Creating and Adding Objects
 ```dart
 import 'package:dart_pbxproj_parser/pbxproj.dart';
 import 'dart:io';
@@ -80,7 +78,7 @@ void addBuildConfiguration(Pbxproj project) {
 }
 ```
 
-Создание и использование списка
+Creating and Using a List
 
 ```dart
 void addFramework(Pbxproj project) {
@@ -101,7 +99,7 @@ void addFramework(Pbxproj project) {
 ```
 
 
-Поиск, добавление и удаление объектов
+Searching, Adding, and Deleting Objects
 
 ```dart
 void addObjectToProject(Pbxproj project) {

@@ -5,3 +5,7 @@
 ## 1.0.1
 
 - Removed debug symbols
+
+## 1.0.2
+
+- Updated README.md
