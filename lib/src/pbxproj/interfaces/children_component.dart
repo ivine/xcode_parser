@@ -84,11 +84,14 @@ abstract class ChildrenComponent extends IChildrenComponent {
 
   @override
   T? find<T extends NamedComponent>(String key) =>
-      _childrenList.firstWhereOrNull((test) => test.uuid == key && test is T) as T?;
+      _childrenList.firstWhereOrNull((test) => test.uuid == key && test is T)
+          as T?;
 
   @override
   T? findComment<T extends NamedComponent>(String comment) =>
-      _childrenList.firstWhereOrNull((test) => (test.comment?.contains(comment) ?? false) && test is T) as T?;
+      _childrenList.firstWhereOrNull(
+              (test) => (test.comment?.contains(comment) ?? false) && test is T)
+          as T?;
 
   @override
   void add(NamedComponent component) {
@@ -106,7 +109,8 @@ abstract class ChildrenComponent extends IChildrenComponent {
   void replaceOrAdd(NamedComponent component) {
     _childrenMap[component.uuid] = component;
     _childrenList.indexWhere((test) => test.uuid == component.uuid);
-    final indexInList = _childrenList.indexWhere((test) => test.uuid == component.uuid);
+    final indexInList =
+        _childrenList.indexWhere((test) => test.uuid == component.uuid);
     if (indexInList == -1) {
       _childrenList.add(component);
     } else {

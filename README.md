@@ -1,4 +1,8 @@
-![Logo](xc_logo_big.png "XC Parser")
+<p align="center">
+    <a href="https://pub.dev/packages/xcode_parser" align="center">
+        <img src="https://github.com/EclipseAndrey/xcode_parser/blob/main/xc_logo_big.png?raw=true" width="4000px">
+    </a>
+</p>
 
 
 
@@ -11,7 +15,11 @@ Xcode Parser is a package for working with Xcode project files (.pbxproj). This 
 - Modifying project settings and configurations.
 - Saving changes to .pbxproj files.
 
-![Example](xc_example.png "Example")
+<p align="center">
+    <a href="https://pub.dev/packages/xcode_parser/exampler" align="center">
+        <img src="https://github.com/EclipseAndrey/xcode_parser/blob/main/xc_example.png?raw=true" width="4000px">
+    </a>
+</p>
 
 ## Installation
 
@@ -19,6 +27,10 @@ Incorporate the package into your Dart or Flutter project by adding it as a depe
 ```yaml
 dependencies:
   xcode_parser: ^0.1.0
+```
+or
+```shell
+dart pub add xcode_parser
 ```
 
 ## Usage Examples

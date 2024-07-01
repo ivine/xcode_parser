@@ -1,6 +1,6 @@
 name: xcode_parser
-description: Xcode Parser .pbxproj
-version: 1.0.4
+description: Reading and analyzing the contents of .pbxproj files. Modifying project settings and configurations. Saving changes to .pbxproj files.
+version: 1.0.7
 repository: https://github.com/EclipseAndrey/xcode_parser
 homepage: https://github.com/EclipseAndrey/xcode_parser
 

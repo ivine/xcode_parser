@@ -15,4 +15,13 @@
 ## 1.0.4
 
 - Added comments
+## 1.0.5
+
+- Added comments
+## 1.0.6
+
+- Updated README.md
+- ## 1.0.7
+
+- Updated README.md
 
