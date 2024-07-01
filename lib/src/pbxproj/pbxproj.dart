@@ -1,4 +1,3 @@
-import 'dart:collection';
 import 'dart:io';
 import 'dart:math';
 
@@ -41,7 +40,7 @@ class Pbxproj extends ChildrenComponent {
     if (content.isEmpty) {
       return Pbxproj(path: path);
     }
-    return parsePbxproj(content, path, debug: true);
+    return parsePbxproj(content, path, debug: false);
   }
 
   Future<void> save() async {

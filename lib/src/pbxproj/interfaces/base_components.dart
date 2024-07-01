@@ -6,9 +6,8 @@ abstract class PbxprojComponent {
 
   String childrenToString(List<NamedComponent> children, {int indentLevel = 0, bool removeN = false}) {
     String sb = '';
-    final n = removeN ? '' : '\n';
     for (int i = 0; i < children.length; i++) {
-      sb += ('${children[i].toString(indentLevel: removeN ? 0 : (indentLevel + 1), removeN: removeN)}');
+      sb += (children[i].toString(indentLevel: removeN ? 0 : (indentLevel + 1), removeN: removeN));
     }
     return sb.toString();
   }
