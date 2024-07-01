@@ -57,7 +57,7 @@ dart pub add xcode_parser
 #### Methods
 
 ##### Note:
-```
+```text
 `open` may take a few seconds, 
 if your program needs to continue working 
 during parsing, it is recommended to use 
@@ -156,174 +156,169 @@ manage mappings in Xcode project files (`*.pbxproj`).
 
 ```dart
 void main() {
-  // Создание объекта MapPbx для настроек сборки
+  // Create a MapPbx object for build settings
   var buildSettings = MapPbx(
-    uuid: 'buildSettings',
-    children: [
-      MapEntryPbx('SWIFT_VERSION', VarPbx('5.0')),
-      MapEntryPbx('IPHONEOS_DEPLOYMENT_TARGET', VarPbx('12.0')),
-    ],
-    comment: 'Main build settings'
+      uuid: 'buildSettings',
+      children: [
+        MapEntryPbx('SWIFT_VERSION', VarPbx('5.0')),
+        MapEntryPbx('IPHONEOS_DEPLOYMENT_TARGET', VarPbx('12.0')),
+      ],
+      comment: 'Main build settings'
   );
 
-  // Добавление дополнительной конфигурации
+  // Add an additional configuration
   buildSettings.add(MapEntryPbx(
-    'GCC_OPTIMIZATION_LEVEL', 
-    VarPbx('s')
+      'GCC_OPTIMIZATION_LEVEL',
+      VarPbx('s')
   ));
 
-  // Вывод информации о маппинге
+  // Output information about the mapping
   print(buildSettings);
 }
 ```
 
 ### MapEntryPbx
 
-`MapEntryPbx` является компонентом библиотеки xcode_parser, 
-который предназначен для представления отдельных записей
-внутри маппингов файлов проекта Xcode (`*.pbxproj`). Этот компонент 
-используется для хранения пар ключ-значение, где каждый ключ представлен 
-UUID, а значение может быть любым компонентом, производным от PbxprojComponent.
-
+`MapEntryPbx` is a component of the `xcode_parser` library
+designed to represent individual entries within the mappings of Xcode
+project files (`*.pbxproj`). This component is used to store key-value pairs,
+where each key is represented by a UUID and the value can be any component
+derived from PbxprojComponent.
 #### Methods
 
-- `String toString({int indentLevel = 0, bool removeN = false})` - Преобразует объект MapEntryPbx в строковое представление, которое может быть использовано для вывода или записи в файл. Параметр indentLevel управляет уровнем отступа для лучшей читаемости, а removeN определяет, следует ли добавлять переносы строк.
-- `MapEntryPbx copyWith({String? uuid, T? value, String? comment})` - Создает копию объекта MapEntryPbx с возможностью замены его компонентов. Это полезно для модификации существующих записей, когда необходимо изменить только часть данных.
-
+- `String toString({int indentLevel = 0, bool removeN = false})` - Converts the MapEntryPbx object to a string representation, which can be used for output or writing to a file. The indentLevel parameter controls the indentation level for better readability, and removeN determines whether to add line breaks.
+- `MapEntryPbx copyWith({String? uuid, T? value, String? comment})` - Creates a copy of the MapEntryPbx object with the ability to replace its components. This is useful for modifying existing entries when only part of the data needs to be changed.
 #### Example
 
 ```dart
 void main() {
-  // Создание объекта MapEntryPbx для настройки сборки
+  // Create a MapEntryPbx object for a build setting
   var swiftVersion = MapEntryPbx(
-    'SWIFT_VERSION',
-    VarPbx('5.0'),
-    comment: 'Swift version for the build configuration'
+      'SWIFT_VERSION',
+      VarPbx('5.0'),
+      comment: 'Swift version for the build configuration'
   );
 
-  // Вывод информации о записи
+  // Output information about the entry
   print(swiftVersion);
 
-  // Создание копии с измененным значением
+  // Create a copy with a changed value
   var updatedSwiftVersion = swiftVersion.copyWith(
-    value: VarPbx('5.2'),
-    comment: 'Updated Swift version'
+      value: VarPbx('5.2'),
+      comment: 'Updated Swift version'
   );
 
-  // Вывод обновленной информации
+  // Output updated information
   print(updatedSwiftVersion);
 }
 ```
 ### VarPbx
-`VarPbx` является компонентом библиотеки `xcode_parser`, который используется 
-для представления значений параметров в файлах проекта Xcode (`*.pbxproj`). 
-Этот компонент предназначен для хранения простых данных, таких как строки, 
-числа, или логические значения, которые являются частью конфигурации проекта Xcode.
-
+`VarPbx` is a component of the `xcode_parser` library used
+to represent parameter values in Xcode project files (`*.pbxproj`).
+This component is designed to store simple data such as strings,
+numbers, or boolean values that are part of the Xcode project configuration.
 #### Methods
 
-- `String toString({int indentLevel = 0, bool removeN = false})` - Преобразует объект VarPbx в строковое представление. Этот метод облегчает интеграцию значения VarPbx в файлы .pbxproj в соответствующем формате.
-
+- `String toString({int indentLevel = 0, bool removeN = false})` - Converts the VarPbx object to a string representation. This method facilitates integrating the VarPbx value into .pbxproj files in the appropriate format.
 #### Example
 
 ```dart
 void main() {
-  // Создание объекта VarPbx для хранения версии Swift
+  // Create a VarPbx object to store the Swift version
   var swiftVersion = VarPbx('5.0');
 
-  // Вывод значения версии Swift
+  // Output the Swift version value
   print('Swift Version: ${swiftVersion}');
 
-  // Использование VarPbx в MapEntryPbx для конфигурации проекта
+  // Use VarPbx in a MapEntryPbx for project configuration
   var buildSetting = MapEntryPbx(
-    'SWIFT_VERSION',
-    swiftVersion,
-    comment: 'Specify the Swift version used for the build'
+      'SWIFT_VERSION',
+      swiftVersion,
+      comment: 'Specify the Swift version used for the build'
   );
 
-  // Вывод полной записи настройки сборки
+  // Output the full build setting entry
   print(buildSetting);
 }
 ```
 
 ### ElementOfListPbx
 
-`ElementOfListPbx` является компонентом библиотеки `xcode_parser`, 
-предназначенным для представления элементов в списке, используемом 
-в файлах проекта Xcode (`*.pbxproj`). Этот компонент обычно используется 
-для представления значений в списках параметров, таких как список исходных 
-файлов, ресурсы и другие групповые настройки.
+`ElementOfListPbx` is a component of the `xcode_parser` library
+intended to represent elements in a list used in Xcode project files (`*.pbxproj`).
+This component is typically used to represent values in lists of parameters,
+such as a list of source files, resources, and other group settings.
+
 
 #### Methods
 
-`String toString({int indentLevel = 0, bool removeN = false})` - Преобразует объект ElementOfListPbx в строковое представление, учитывая уровень отступа и необходимость включения переносов строк. Метод удобен для формирования правильного формата записи элементов в .pbxproj файл.
-`ElementOfListPbx copyWith({String? value, String? comment})` - Создает копию текущего элемента списка с возможностью изменения его значения или комментария. Это полезно для модификации существующих элементов при необходимости.
-
+- `String toString({int indentLevel = 0, bool removeN = false})` - Converts the ElementOfListPbx object to a string representation, considering the indentation level and the need to include line breaks. The method is convenient for forming the correct format for recording elements in a .pbxproj file.
+- `ElementOfListPbx copyWith({String? value, String? comment})` - Creates a copy of the current list element with the possibility of changing its value or comment. This is useful for modifying existing elements when needed.
 #### Example
 
 ```dart
 void main() {
-  // Создание элемента списка с комментарием
+  // Create a list element with a comment
   var sourceFile = ElementOfListPbx(
       'MainViewController.swift',
       comment: 'Main view controller of the application'
   );
 
-  // Вывод информации об элементе списка
+  // Output information about the list element
   print(sourceFile);
 
-  // Создание копии элемента с измененным комментарием
+  // Create a copy of the element with a changed comment
   var updatedSourceFile = sourceFile.copyWith(
       comment: 'Updated main view controller file'
   );
 
-  // Вывод информации об обновленном элементе списка
+  // Output information about the updated list element
   print(updatedSourceFile);
 }
 ```
 
 ### ListPbx
-`ListPbx` — это компонент библиотеки xcode_parser, предназначенный для 
-управления списками в файлах проекта Xcode (`*.pbxproj`). Этот компонент 
-используется для представления массивов значений, таких как файлы, 
-конфигурации и другие коллекции элементов, связанных с проектом.
+`ListPbx` is a component of the `xcode_parser` library designed to
+manage lists in Xcode project files (`*.pbxproj`). This component
+is used to represent arrays of values, such as files,
+configurations, and other collections of elements related to the project.
 
 
 #### Methods
 
-- `operator [](int index)` - Позволяет доступ к элементам списка по индексу.
-- `int get length` - Возвращает количество элементов в списке.
-- `void add(ElementOfListPbx element)` - Добавляет элемент в список.
-- `String toString({int indentLevel = 0, bool removeN = false})` - Возвращает строковое представление объекта, учитывая уровень отступа и необходимость удаления переносов строк. Предназначено для формирования корректного вывода списка в файл .pbxproj.
-- `ListPbx copyWith({String? uuid, List<ElementOfListPbx>?` - children, String? comment}): Создает копию текущего объекта списка с возможностью замены его компонентов. Это полезно при необходимости изменения списка без воздействия на исходный объект.
+- `operator [](int index)` - Provides access to list elements by index.
+- `int get length` - Returns the number of elements in the list.
+- `void add(ElementOfListPbx element)` - Adds an element to the list.
+- `String toString({int indentLevel = 0, bool removeN = false})` - Returns a string representation of the object, considering the indentation level and the need to remove line breaks. Designed to form a correct output of the list in a .pbxproj file.
+- `ListPbx copyWith({String? uuid, List<ElementOfListPbx>? children, String? comment})` - Creates a copy of the current list object with the possibility of replacing its components. This is useful when needing to change the list without affecting the original object.
 
 
 #### Example
 
 ```dart
 void main() {
-  // Создание списка для файлов проекта
+  // Create a list for project files
   var fileList = ListPbx(
-    'FILE_LIST',
-    [
-      ElementOfListPbx('AppDelegate.swift'),
-      ElementOfListPbx('ViewController.swift'),
-    ],
-    comment: 'List of source files'
+      'FILE_LIST',
+      [
+        ElementOfListPbx('AppDelegate.swift'),
+        ElementOfListPbx('ViewController.swift'),
+      ],
+      comment: 'List of source files'
   );
 
-  // Добавление нового файла в список
+  // Add a new file to the list
   fileList.add(ElementOfListPbx('MainViewController.swift'));
 
-  // Вывод информации о списке файлов
+  // Output information about the file list
   print(fileList);
 
-  // Создание копии списка с изменением комментария
+  // Create a copy of the list with a changed comment
   var updatedFileList = fileList.copyWith(
-    comment: 'Updated list of source files'
+      comment: 'Updated list of source files'
   );
 
-  // Вывод обновленной информации о списке
+  // Output updated information about the list
   print(updatedFileList);
 }
 ```
