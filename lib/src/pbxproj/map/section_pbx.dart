@@ -7,7 +7,7 @@ class SectionPbx extends ChildrenNamedComponent {
   SectionPbx({
     required this.name,
     super.children,
-  }) : super(uuid: name);
+  }) : super(uuid: name, comment: name);
 
   @override
   String toString({int indentLevel = 0, bool removeN = false}) {

@@ -102,6 +102,9 @@ void main() {
       {
         parentMap        = /* comment */ {
           childKey = childValue;
+                /* Begin PBXSection section */
+        sectionKey = sectionValue;
+      /* End PBXSection section */
         };
       }
       ''';
@@ -111,6 +114,15 @@ void main() {
       final childMapEntry = parentMap.childrenList.first as MapEntryPbx;
       expect(childMapEntry.uuid, 'childKey');
       expect(childMapEntry.value.toString(), 'childValue');
+
+      final section = parentMap.findComment('PBXSection') as SectionPbx;
+      expect(section.comment, 'PBXSection');
+      expect(section.uuid, 'PBXSection');
+      expect(section.name, 'PBXSection');
+
+      final sectionEntry = section.childrenList.first as MapEntryPbx;
+      expect(sectionEntry.uuid, 'sectionKey');
+      expect(sectionEntry.value.toString(), 'sectionValue');
     });
 
     test('Parse PBX content with sections', () {
