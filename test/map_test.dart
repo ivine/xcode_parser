@@ -31,13 +31,19 @@ void main() {
     test('Replace or Add NamedComponent', () {
       mapPbx.add(component);
       final newComponent = MapEntryPbx(
-        '123',
+        '1234',
         VarPbx('NewComponent'),
         comment: 'NewComment',
       );
       mapPbx.replaceOrAdd(newComponent);
-      expect(mapPbx.childrenList, contains(newComponent));
-      expect(mapPbx.childrenMap[component.uuid], newComponent);
+      expect(mapPbx[newComponent.uuid], newComponent);
+
+      final newComponent2 = newComponent.copyWith(
+        value: VarPbx('NewComponent2'),
+      );
+
+      mapPbx.replaceOrAdd(newComponent2);
+      expect(mapPbx[newComponent.uuid], newComponent2);
     });
 
     test('Find NamedComponent by UUID', () {
