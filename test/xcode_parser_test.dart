@@ -44,6 +44,7 @@ void main() {
         "string test \$key" = "string "test" \$value";
        // comment
        someKey /* connemt */ = someValue;
+       someKey = someValue /* comment */;
       }''');
 
       final pbxproj = await Pbxproj.open(tempFilePath);
@@ -76,16 +77,22 @@ void main() {
     test('Parse PBX content with list', () {
       final content = '''
       {
-        someList = (
+        someList /* comment */     = (
           item1,
           item2 /* comment */
+        );
+         someList1      =   (
+          item1,
+          item2 /* comment */,
         );
       }
       ''';
       final pbxproj = parsePbxproj(content, '/path/to/project.pbxproj');
       expect(pbxproj.childrenList, isNotEmpty);
-      final listPbx = pbxproj.childrenList.first as ListPbx;
-      expect(listPbx[0].value, 'item1');
+      final listPbx = pbxproj.find<ListPbx>('someList');
+      expect(listPbx, isNotNull);
+      expect(listPbx?.length, 2);
+      expect(listPbx![0].value, 'item1');
       expect(listPbx[1].value, 'item2');
       expect(listPbx[1].comment, 'comment');
     });
