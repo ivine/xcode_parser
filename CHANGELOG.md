@@ -27,3 +27,9 @@
 - Updated README.md
 - fixed parse MapEntry in parsePbxproj
 
+## 1.1.0
+
+- Updated README.md
+- Fixed something bugs
+- Added tests
+
