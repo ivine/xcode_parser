@@ -108,6 +108,7 @@ void main() {
     test('Parse PBX content with nested maps', () {
       final content = '''
       {
+      entryKey = entryValue;
         parentMap        = /* comment */ {
         // comment
           childKey = childValue;
@@ -123,6 +124,7 @@ void main() {
       final projContent = Pbxproj(
         path: '/path/to/project.pbxproj',
         children: [
+          MapEntryPbx('entryKey', VarPbx('entryValue')),
           MapPbx(
             uuid: 'parentMap',
             comment: 'comment',
@@ -146,8 +148,10 @@ void main() {
 
       final pbxproj = parsePbxproj(content, '/path/to/project.pbxproj', debug: true);
       expect(pbxproj.childrenList, isNotEmpty);
-      final parentMap = pbxproj.childrenList.first as MapPbx;
-      final childMapEntry = parentMap.childrenList.first as MapEntryPbx;
+      final parentMap = pbxproj.find<MapPbx>('parentMap');
+      expect(parentMap, isNotNull);
+      expect(parentMap?.childrenList, isNotEmpty);
+      final childMapEntry = parentMap!.childrenList.first as MapEntryPbx;
       expect(childMapEntry.uuid, 'childKey');
       expect(childMapEntry.value.toString(), 'childValue');
 
