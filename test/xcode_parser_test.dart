@@ -109,6 +109,7 @@ void main() {
       final content = '''
       {
         parentMap        = /* comment */ {
+        // comment
           childKey = childValue;
       /* Begin PBXSection section */
         sectionKey = sectionValue;

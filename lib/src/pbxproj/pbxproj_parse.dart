@@ -278,6 +278,8 @@ Pbxproj parsePbxproj(String content, String path, {bool debug = false}) {
         addChild(parseMap());
       } else if (current().startsWith('//')) {
         printD('M FOUND Comment //');
+        // TODO add comment
+        skipPattern('//');
         while (index < content.length && content[index] != '\n') {
           index++;
         }
