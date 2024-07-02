@@ -87,7 +87,8 @@ class Pbxproj extends ChildrenComponent {
   String generateUuid() {
     const chars = '0123456789ABCDEF';
     final rand = Random();
-    final uuid = List.generate(24, (index) => chars[rand.nextInt(chars.length)]).join();
+    final uuid =
+        List.generate(24, (index) => chars[rand.nextInt(chars.length)]).join();
     return _checkUuid(uuid);
   }
 

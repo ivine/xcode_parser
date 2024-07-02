@@ -12,7 +12,9 @@
 
 # Xcode Parser
 
-Xcode Parser is a package for working with Xcode project files (.pbxproj). This package allows you to read, modify, and save changes in .pbxproj files, which is especially useful for automating iOS development tasks.
+Xcode Parser is a package for working with Xcode project files (`.pbxproj`).
+This package allows you to read, modify, and save changes in `.pbxproj` 
+files, which is especially useful for automating iOS development tasks.
 ## Features
 
 - Reading and analyzing the contents of .pbxproj files.
@@ -29,7 +31,7 @@ Xcode Parser is a package for working with Xcode project files (.pbxproj). This 
 Incorporate the package into your Dart or Flutter project by adding it as a dependency in your `pubspec.yaml` file:
 ```yaml
 dependencies:
-  xcode_parser: ^0.1.0
+  xcode_parser: ^1.1.1
 ```
 or
 ```shell

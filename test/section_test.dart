@@ -48,7 +48,8 @@ void main() {
 
     test('Find NamedComponent by Comment', () {
       section.add(component);
-      final foundComponent = section.findComment<MapEntryPbx<VarPbx>>('TestComment');
+      final foundComponent =
+          section.findComment<MapEntryPbx<VarPbx>>('TestComment');
       expect(foundComponent, component);
     });
 

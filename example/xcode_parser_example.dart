@@ -54,7 +54,8 @@ void addFramework(Pbxproj project) {
       MapEntryPbx('isa', VarPbx('PBXGroup')),
       ListPbx('children', [
         ElementOfListPbx(uuidFrameworkName, comment: 'FrameworkName.framework'),
-        ElementOfListPbx(uuidFramework2Name, comment: 'Framework2Name.framework'),
+        ElementOfListPbx(uuidFramework2Name,
+            comment: 'Framework2Name.framework'),
       ]),
     ],
   );

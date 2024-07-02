@@ -71,7 +71,8 @@ void main() {
       final pbxproj = parsePbxproj(content, '/path/to/project.pbxproj');
       expect(pbxproj.childrenList, isNotEmpty);
       expect((pbxproj.childrenList.first as MapEntryPbx).uuid, 'someKey');
-      expect((pbxproj.childrenList.first as MapEntryPbx).value.toString(), 'someValue');
+      expect((pbxproj.childrenList.first as MapEntryPbx).value.toString(),
+          'someValue');
     });
 
     test('Parse PBX content with list', () {
@@ -147,7 +148,8 @@ void main() {
         ],
       );
 
-      final pbxproj = parsePbxproj(content, '/path/to/project.pbxproj', debug: true);
+      final pbxproj =
+          parsePbxproj(content, '/path/to/project.pbxproj', debug: true);
       expect(pbxproj.childrenList, isNotEmpty);
 
       final parentMap = pbxproj.find<MapPbx>('parentMap');
