@@ -150,16 +150,12 @@ Pbxproj parsePbxproj(String content, String path, {bool debug = false}) {
 
   String parseComment() {
     String comment = '';
-    while (index < content.length && !content.substring(index).startsWith('/*')) {
-      index++;
-    }
-    index += 2;
-
+    skipPattern('/*');
     while (index < content.length && !content.substring(index).startsWith('*/')) {
       comment += content[index];
       index++;
     }
-    index += 2;
+    skipPattern('*/');
     printD('Parse Comment: ${comment.trim()}');
     return comment.trim();
   }
@@ -264,16 +260,11 @@ Pbxproj parsePbxproj(String content, String path, {bool debug = false}) {
 
     while (index < content.length) {
       if (current().startsWith('{')) {
-        index++;
+        skipPattern('{');
         continue;
       } else if (current().startsWith('};')) {
-        if (content.substring(index).startsWith('};')) {
-          index += 2;
-          break;
-        } else {
-          index++;
-          continue;
-        }
+        skipPattern('};');
+        break;
       }
       if (current().startsWith(regexEntry)) {
         printD('M FOUND Entry');
@@ -302,7 +293,6 @@ Pbxproj parsePbxproj(String content, String path, {bool debug = false}) {
           sectionPbx = null;
         }
         printD('M END Comment $comment');
-        index += 2;
       } else {
         printD('M FOUND EntryFallBack');
         addChild(parseEntry());
