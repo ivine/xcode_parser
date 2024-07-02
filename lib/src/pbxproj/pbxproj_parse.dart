@@ -24,11 +24,11 @@ Pbxproj parsePbxproj(String content, String path, {bool debug = false}) {
   }
 
   final regexList = RegExp(r'[a-zA-Z0-9_]+\s*(/\*.*?\*/\s*)?=\s*(?:/\*.*?\*/\s*)?\(');
-  final regexEntry = RegExp(
-    r'^\s*(\w+)\s*(?:\/\*\s*[^*]*\*\/\s*)?=\s*(?:\/\*\s*[^*]*\*\/\s*)?"((?:\\.|[^"\\])*)"|([\w$%.\?!)(}{#@]+)\s*(?:\/\*\s*[^*]*\*\/)?;\s*$',
-    multiLine: true,
-    dotAll: true,
-  );
+  // final regexEntry = RegExp(
+  //   r'^\s*(\w+)\s*(?:\/\*\s*[^*]*\*\/\s*)?=\s*(?:\/\*\s*[^*]*\*\/\s*)?"((?:\\.|[^"\\])*)"|([\w$%.\?!)(}{#@]+)\s*(?:\/\*\s*[^*]*\*\/)?;\s*$',
+  //   multiLine: true,
+  //   dotAll: true,
+  // );
 
   final regexMap = RegExp(r'[a-zA-Z0-9_]+\s*(/\*.*?\*/\s*)?=\s*(?:/\*.*?\*/\s*)?\{');
 
@@ -270,10 +270,11 @@ Pbxproj parsePbxproj(String content, String path, {bool debug = false}) {
         skipPattern('};');
         break;
       }
-      if (current().startsWith(regexEntry)) {
-        printD('M FOUND Entry');
-        addChild(parseEntry());
-      } else if (current().startsWith(regexList)) {
+      // if (current().startsWith(regexEntry)) {
+      //   printD('M FOUND Entry');
+      //   addChild(parseEntry());
+      // } else
+      if (current().startsWith(regexList)) {
         printD('M FOUND List');
         addChild(parseList());
       } else if (current().startsWith(regexMap)) {
@@ -320,10 +321,12 @@ Pbxproj parsePbxproj(String content, String path, {bool debug = false}) {
       if (current().startsWith('{')) {
         printD('J FOUND {');
         skipPattern('{');
-      } else if (current().startsWith(regexEntry)) {
-        printD('J FOUND Entry');
-        addChild(parseEntry());
-      } else if (current().startsWith(regexList)) {
+      } else
+      //   if (current().startsWith(regexEntry)) {
+      //   printD('J FOUND Entry');
+      //   addChild(parseEntry());
+      // } else
+      if (current().startsWith(regexList)) {
         printD('J FOUND List');
         addChild(parseList());
       } else if (current().startsWith(regexMap)) {
