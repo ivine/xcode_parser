@@ -11,9 +11,10 @@
 
 
 <div align="center">
-<a class="iksweb" href="https://github.com/EclipseAndrey/xcode_parser/issues/new" title="Something wrong?" style="display: inline-block; cursor: pointer; font-size: 14px; text-decoration: none; padding: 10px 20px; color: #354251; background: #ffff0; border-radius: 11px; border: 2px solid #354251;" onmouseover="this.style.background='#354251';this.style.color='#ffffff';this.style.transition='all 0.2s ease';" onmouseout="this.style.background='#ffff0';this.style.color='#354251';">
-  Something wrong?
-</a>
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="50" id="button" style="cursor: pointer;">
+  <rect x="0" y="0" rx="11" ry="11" width="200" height="50" style="fill: transparent; stroke: #354251; stroke-width: 2; transition: all 0.2s ease;"/>
+  <text x="50%" y="50%" alignment-baseline="middle" text-anchor="middle" font-size="14" fill="#354251" style="transition: all 0.2s ease;">Something wrong?</text>
+</svg>
 </div>
 
 
