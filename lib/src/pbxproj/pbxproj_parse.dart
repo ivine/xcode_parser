@@ -250,13 +250,7 @@ Pbxproj parsePbxproj(String content, String path, {bool debug = false}) {
       index++;
     }
     index++;
-    if (content.substring(index).trim().startsWith('=')) {
-      while (index < content.length && content[index] != '=') {
-        index++;
-      }
-      index++;
-    }
-
+    skipPattern('=');
     List<NamedComponent> children = [];
     SectionPbx? sectionPbx;
 
