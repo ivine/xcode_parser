@@ -9,6 +9,16 @@
   <a href="https://github.com/EclipseAndrey/xcode_parser/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License: MIT"></a>
 </p>
 
+<style>
+/* Стили кнопки */
+.iksweb{display: inline-block;cursor: pointer; font-size:14px;text-decoration:none;padding:10px 20px; color:#354251;background:#ffff0;border-radius:11px;border:2px solid #354251;}
+.iksweb:hover{background:#354251;color:#ffffff;border:2px solid #354251;transition: all 0.2s ease;}
+</style>
+
+<div align="center">
+<a class="iksweb" href="https://github.com/EclipseAndrey/xcode_parser/issues/new"   title="Something wrong?">Something wrong?</a>
+</div>
+
 
 # Xcode Parser
 
