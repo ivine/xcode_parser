@@ -143,6 +143,8 @@ Pbxproj parsePbxproj(String content, String path, {bool debug = false}) {
       value += content[index];
       index++;
     }
+
+    printD('ParseValOfList: ${value.trim()}');
     return value.trim();
   }
 
@@ -214,15 +216,16 @@ Pbxproj parsePbxproj(String content, String path, {bool debug = false}) {
         skipPattern(')');
         index++;
         break;
-      } else if (content.substring(index).trim().startsWith('/*')) {
+      } else if (current().startsWith('/*')) {
         printD('L FOUND /*');
         final comment = parseComment();
         final value = parseValOfList();
         elements.add(ElementOfListPbx(value, comment: comment));
+        skipPattern(',');
       } else {
         printD('L FOUND val');
         String value = parseValOfList();
-        if (content.substring(index).trim().startsWith('/*')) {
+        if (current().startsWith('/*')) {
           final comment = parseComment();
           index++;
           elements.add(ElementOfListPbx(value, comment: comment));

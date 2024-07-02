@@ -79,11 +79,13 @@ void main() {
       {
         someList /* comment */     = (
           item1,
-          item2 /* comment */
+          item2 /* comment */,
+          /* comment */ item3,
         );
          someList1      =   (
           item1,
           item2 /* comment */,
+          /* comment */ item3,
         );
       }
       ''';
@@ -91,10 +93,16 @@ void main() {
       expect(pbxproj.childrenList, isNotEmpty);
       final listPbx = pbxproj.find<ListPbx>('someList');
       expect(listPbx, isNotNull);
-      expect(listPbx?.length, 2);
+      expect(listPbx?.length, 3);
+
       expect(listPbx![0].value, 'item1');
+      expect(listPbx[0].comment, null);
+
       expect(listPbx[1].value, 'item2');
       expect(listPbx[1].comment, 'comment');
+
+      expect(listPbx[2].value, 'item3');
+      expect(listPbx[2].comment, 'comment');
     });
 
     test('Parse PBX content with nested maps', () {
