@@ -105,6 +105,8 @@ void main() {
                 /* Begin PBXSection section */
         sectionKey = sectionValue;
       /* End PBXSection section */
+        childMap /* comment */ = {};
+      
         };
       }
       ''';
