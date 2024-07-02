@@ -41,6 +41,9 @@ void main() {
       await file.writeAsString('''// !\$*UTF8*\$!
       {
         someKey = someValue;
+        "string test \$key" = "string "test" \$value";
+       // comment
+       someKey /* connemt */ = someValue;
       }''');
 
       final pbxproj = await Pbxproj.open(tempFilePath);
@@ -90,7 +93,7 @@ void main() {
     test('Parse PBX content with nested maps', () {
       final content = '''
       {
-        parentMap = {
+        parentMap = /* comment */ {
           childKey = childValue;
         };
       }
@@ -113,7 +116,7 @@ void main() {
       }
       
       ''';
-      final pbxproj = parsePbxproj(content, '/path/to/project.pbxproj', debug: false);
+      final pbxproj = parsePbxproj(content, '/path/to/project.pbxproj', debug: true);
       expect(pbxproj.childrenList, isNotEmpty);
       final section = pbxproj.childrenList.first as SectionPbx;
       final sectionEntry = section.childrenList.first as MapEntryPbx;
