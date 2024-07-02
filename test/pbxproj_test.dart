@@ -31,7 +31,12 @@ void main() {
       await file.writeAsString('// !\$*UTF8*\$!\n{}');
       final openedProject = await Pbxproj.open(tempFilePath);
       expect(openedProject.path, tempFilePath);
-      expect(openedProject.childrenList, isEmpty);
+
+      expect(
+          openedProject.childrenList.toString(),
+          [
+            CommentPbx('!\$*UTF8*\$!'),
+          ].toString());
     });
 
     test('Save Pbxproj file', () async {

@@ -129,6 +129,7 @@ void main() {
             uuid: 'parentMap',
             comment: 'comment',
             children: [
+              CommentPbx('comment'),
               MapEntryPbx('childKey', VarPbx('childValue')),
               SectionPbx(
                 name: 'PBXSection',
@@ -148,11 +149,15 @@ void main() {
 
       final pbxproj = parsePbxproj(content, '/path/to/project.pbxproj', debug: true);
       expect(pbxproj.childrenList, isNotEmpty);
+
       final parentMap = pbxproj.find<MapPbx>('parentMap');
       expect(parentMap, isNotNull);
       expect(parentMap?.childrenList, isNotEmpty);
-      final childMapEntry = parentMap!.childrenList.first as MapEntryPbx;
-      expect(childMapEntry.uuid, 'childKey');
+
+      final childMapEntry = parentMap!.find<MapEntryPbx>('childKey');
+
+      expect(childMapEntry, isNotNull);
+      expect(childMapEntry!.uuid, 'childKey');
       expect(childMapEntry.value.toString(), 'childValue');
 
       final section = parentMap.findComment('PBXSection') as SectionPbx;

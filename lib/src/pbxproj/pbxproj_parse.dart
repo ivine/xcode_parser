@@ -161,13 +161,17 @@ Pbxproj parsePbxproj(String content, String path, {bool debug = false}) {
   }
 
   CommentPbx parseCommentLine() {
+    if (!current().startsWith('//')) {
+      return CommentPbx('');
+    }
+    skipPattern('//');
     String comment = '';
     while (index < content.length && !content.substring(index).startsWith('\n')) {
       comment += content[index];
       index++;
     }
-    index++;
-    printD('Parse Comment: ${comment.trim()}');
+    skipPattern('\n');
+    printD('Parse Comment Line: ${comment.trim()}');
     return CommentPbx(comment.trim());
   }
 
@@ -242,7 +246,7 @@ Pbxproj parsePbxproj(String content, String path, {bool debug = false}) {
     skipPattern('=');
     if (current().startsWith('/*')) {
       comment = parseComment();
-      printD('M FOUND key Comment : $comment\nM Out comment: ${current().substring(0, 30)}');
+      printD('M FOUND key Comment : $comment\nM after comment: ${current().substring(0, 30)}');
       index++;
     }
     index++;
@@ -277,12 +281,8 @@ Pbxproj parsePbxproj(String content, String path, {bool debug = false}) {
         index++;
         addChild(parseMap());
       } else if (current().startsWith('//')) {
-        printD('M FOUND Comment //');
-        // TODO add comment
-        skipPattern('//');
-        while (index < content.length && content[index] != '\n') {
-          index++;
-        }
+        printD('M FOUND comment //');
+        addChild(parseCommentLine());
       } else if (current().startsWith('/*')) {
         printD('M FOUND Comment /*');
         final comment = parseComment();
@@ -332,9 +332,7 @@ Pbxproj parsePbxproj(String content, String path, {bool debug = false}) {
         addChild(parseMap());
       } else if (current().startsWith('//')) {
         printD('J FOUND comment //');
-        index += 2;
-        parseCommentLine();
-        // children.add(parseCommentLine());
+        addChild(parseCommentLine());
       } else if (current().startsWith('/*')) {
         printD('J FOUND Comment /*');
         final comment = parseComment();
@@ -342,16 +340,11 @@ Pbxproj parsePbxproj(String content, String path, {bool debug = false}) {
         final end = checkEndSection(comment);
         if (begin != null) {
           sectionPbx = SectionPbx(name: begin, children: []);
-          printD('J Begin Section /* $comment */');
         } else if (end != null && sectionPbx != null) {
           children.add(sectionPbx);
           sectionPbx = null;
-          printD('J End Section /* $comment */');
-        } else {
-          index += 2;
-          continue;
         }
-        index += 2;
+        printD('J END Comment $comment');
       } else if (current().startsWith('}')) {
         printD('J FOUND }');
         index++;
