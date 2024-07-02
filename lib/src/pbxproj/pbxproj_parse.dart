@@ -91,7 +91,7 @@ Pbxproj parsePbxproj(String content, String path, {bool debug = false}) {
         }
       }
     } else {
-      while (index < content.length && content[index] != '=' && content.substring(index, index + 2) != '/*') {
+      while (index < content.length && !current().startsWith('=') && !current().startsWith('/*')) {
         key += content[index];
         index++;
       }
@@ -240,7 +240,8 @@ Pbxproj parsePbxproj(String content, String path, {bool debug = false}) {
   MapPbx parseMap() {
     final key = parseKey();
     String? comment;
-    if (content.substring(index).trim().startsWith('/*')) {
+    skipPattern('=');
+    if (current().startsWith('/*')) {
       comment = parseComment();
       printD('M FOUND key Comment : $comment\nM Out comment: ${current().substring(0, 30)}');
       index++;

@@ -102,7 +102,7 @@ void main() {
       {
         parentMap        = /* comment */ {
           childKey = childValue;
-                /* Begin PBXSection section */
+      /* Begin PBXSection section */
         sectionKey = sectionValue;
       /* End PBXSection section */
         childMap /* comment */ = {};
@@ -110,7 +110,32 @@ void main() {
         };
       }
       ''';
-      final pbxproj = parsePbxproj(content, '/path/to/project.pbxproj');
+
+      final projContent = Pbxproj(
+        path: '/path/to/project.pbxproj',
+        children: [
+          MapPbx(
+            uuid: 'parentMap',
+            comment: 'comment',
+            children: [
+              MapEntryPbx('childKey', VarPbx('childValue')),
+              SectionPbx(
+                name: 'PBXSection',
+                children: [
+                  MapEntryPbx('sectionKey', VarPbx('sectionValue')),
+                ],
+              ),
+              MapPbx(
+                uuid: 'childMap',
+                comment: 'comment',
+                children: [],
+              ),
+            ],
+          ),
+        ],
+      );
+
+      final pbxproj = parsePbxproj(content, '/path/to/project.pbxproj', debug: true);
       expect(pbxproj.childrenList, isNotEmpty);
       final parentMap = pbxproj.childrenList.first as MapPbx;
       final childMapEntry = parentMap.childrenList.first as MapEntryPbx;
@@ -125,6 +150,7 @@ void main() {
       final sectionEntry = section.childrenList.first as MapEntryPbx;
       expect(sectionEntry.uuid, 'sectionKey');
       expect(sectionEntry.value.toString(), 'sectionValue');
+      expect(projContent.toString(), pbxproj.toString());
     });
 
     test('Parse PBX content with sections', () {
@@ -137,7 +163,7 @@ void main() {
       }
       
       ''';
-      final pbxproj = parsePbxproj(content, '/path/to/project.pbxproj', debug: true);
+      final pbxproj = parsePbxproj(content, '/path/to/project.pbxproj');
       expect(pbxproj.childrenList, isNotEmpty);
       final section = pbxproj.childrenList.first as SectionPbx;
       final sectionEntry = section.childrenList.first as MapEntryPbx;
