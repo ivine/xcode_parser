@@ -10,12 +10,12 @@
 </p>
 
 
-<div align="center">
-<svg xmlns="http://www.w3.org/2000/svg" width="200" height="50" id="button" style="cursor: pointer;">
-  <rect x="0" y="0" rx="11" ry="11" width="200" height="50" style="fill: transparent; stroke: #354251; stroke-width: 2; transition: all 0.2s ease;"/>
-  <text x="50%" y="50%" alignment-baseline="middle" text-anchor="middle" font-size="14" fill="#354251" style="transition: all 0.2s ease;">Something wrong?</text>
-</svg>
-</div>
+
+<p align="center">
+    <a href="https://github.com/EclipseAndrey/xcode_parser/issues/new" align="center">
+        <img src="https://github.com/EclipseAndrey/xcode_parser/blob/main/wrong_button.png?raw=true" width="300px">
+    </a>
+</p>
 
 
 # Xcode Parser
