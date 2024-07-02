@@ -3,6 +3,11 @@
         <img src="https://github.com/EclipseAndrey/xcode_parser/blob/main/xc_logo_big.png?raw=true" width="4000px">
     </a>
 </p>
+<p align="center">
+  <a href="https://codecov.io/gh/EclipseAndrey/xcode_parser"><img src="https://codecov.io/gh/EclipseAndrey/xcode_parser/branch/main/graph/badge.svg" alt="codecov"></a>
+  <a href="https://github.com/EclipseAndrey/xcode_parser/actions"><img src="https://github.com/EclipseAndrey/xcode_parser/actions/workflows/dart.yml/badge.svg" alt="xcode_parser"></a>
+  <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License: MIT"></a>
+</p>
 
 
 # Xcode Parser
