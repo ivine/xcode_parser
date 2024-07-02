@@ -177,14 +177,14 @@ Pbxproj parsePbxproj(String content, String path, {bool debug = false}) {
 
   MapEntryPbx parseEntry() {
     final key = parseKey();
-    if (content.substring(index).trim().startsWith('/*')) {
+    if (current().startsWith('/*')) {
       final comment = parseComment();
       final value = parseVar();
       index++;
       return MapEntryPbx(key, VarPbx(value), comment: comment);
     }
     final value = parseVar();
-    if (content.substring(index).trim().startsWith('/*')) {
+    if (current().startsWith('/*')) {
       final comment = parseComment();
       index++;
       return MapEntryPbx(key, VarPbx(value), comment: comment);
@@ -197,10 +197,10 @@ Pbxproj parsePbxproj(String content, String path, {bool debug = false}) {
     List<ElementOfListPbx> elements = [];
     String? comment;
     final key = parseKey();
-    if (content.substring(index).trim().startsWith('/*')) {
+    if (current().startsWith('/*')) {
       comment = parseComment();
     }
-    if (content.substring(index).trim().startsWith('=')) {
+    if (current().startsWith('=')) {
       while (index < content.length && content[index] != '=') {
         index++;
       }
@@ -275,13 +275,13 @@ Pbxproj parsePbxproj(String content, String path, {bool debug = false}) {
           continue;
         }
       }
-      if (content.substring(index).trim().startsWith(regexEntry)) {
+      if (current().startsWith(regexEntry)) {
         printD('M FOUND Entry');
         addChild(parseEntry());
-      } else if (content.substring(index).trim().startsWith(regexList)) {
+      } else if (current().startsWith(regexList)) {
         printD('M FOUND List');
         addChild(parseList());
-      } else if (content.substring(index).trim().startsWith(regexMap)) {
+      } else if (current().startsWith(regexMap)) {
         printD('M FOUND Map');
         index++;
         addChild(parseMap());
@@ -325,16 +325,16 @@ Pbxproj parsePbxproj(String content, String path, {bool debug = false}) {
 
     while (index < content.length) {
       skipPattern(';');
-      if (content.substring(index).trim().startsWith('{')) {
+      if (current().startsWith('{')) {
         printD('J FOUND {');
         skipPattern('{');
-      } else if (content.substring(index).trim().startsWith(regexEntry)) {
+      } else if (current().startsWith(regexEntry)) {
         printD('J FOUND Entry');
         addChild(parseEntry());
-      } else if (content.substring(index).trim().startsWith(regexList)) {
+      } else if (current().startsWith(regexList)) {
         printD('J FOUND List');
         addChild(parseList());
-      } else if (content.substring(index).trim().startsWith(regexMap)) {
+      } else if (current().startsWith(regexMap)) {
         printD('J FOUND Map');
         index++;
         addChild(parseMap());
