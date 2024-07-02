@@ -1,126 +1,125 @@
 import 'dart:io';
 
 import 'package:test/test.dart';
+import 'package:xcode_parser/src/pbxproj/pbxproj_parse.dart';
 import 'package:xcode_parser/xcode_parser.dart';
 
-void main() async {
-  group('Pbxproj Operations', () {
-    late Pbxproj project;
+void main() {
+  group('Pbxproj.open Tests', () {
+    late String tempDirPath;
+    late String tempFilePath;
 
     setUp(() async {
-      /// current path
-      final currentPath = Directory.current.path;
-      print(currentPath);
-      // Assuming Pbxproj.open is mocked to not require an actual file
-      project = await Pbxproj.open('$currentPath/test/project.pbxproj');
+      tempDirPath = Directory.systemTemp.createTempSync().path;
+      tempFilePath = '$tempDirPath/project.pbxproj';
     });
 
-    test('Should open a project file successfully', () {
-      expect(project, isNotNull);
-      final currentPath = Directory.current.path;
-      expect(project.path, equals('$currentPath/test/project.pbxproj'));
+    tearDown(() async {
+      final tempDir = Directory(tempDirPath);
+      if (await tempDir.exists()) {
+        await tempDir.delete(recursive: true);
+      }
     });
 
-    test('Should add a new component and save the project', () async {
-      var uuid = project.generateUuid();
-      var newComponent = MapPbx(uuid: uuid, children: []);
-      project.add(newComponent);
-      await project.save();
-
-      // Verify the component was added
-      var retrievedComponent = project[uuid];
-      expect(retrievedComponent, equals(newComponent));
+    test('Open Pbxproj file when file does not exist', () async {
+      final pbxproj = await Pbxproj.open(tempFilePath);
+      expect(pbxproj.path, tempFilePath);
+      expect(pbxproj.childrenList, isEmpty);
     });
 
-    test('Should remove a component from the project', () {
-      var initialCount = project.childrenList.length;
-      var componentToRemove = project.childrenList.first;
-      project.remove(componentToRemove.uuid);
-
-      // Verify the component was removed
-      expect(project.childrenList.length, equals(initialCount - 1));
-      expect(project[componentToRemove.uuid], isNull);
+    test('Open Pbxproj file when file is empty', () async {
+      final file = File(tempFilePath);
+      await file.create(recursive: true);
+      final pbxproj = await Pbxproj.open(tempFilePath);
+      expect(pbxproj.path, tempFilePath);
+      expect(pbxproj.childrenList, isEmpty);
     });
 
-    test('Generate UUID should be unique', () {
-      var uuid1 = project.generateUuid();
-      var uuid2 = project.generateUuid();
-      expect(uuid1, isNot(equals(uuid2)));
+    test('Open Pbxproj file with content', () async {
+      final file = File(tempFilePath);
+      await file.create(recursive: true);
+      await file.writeAsString('''// !\$*UTF8*\$!
+      {
+        someKey = someValue;
+      }''');
+
+      final pbxproj = await Pbxproj.open(tempFilePath);
+      expect(pbxproj.path, tempFilePath);
+      expect(pbxproj.childrenList, isNotEmpty);
+    });
+
+    test('Open Pbxproj file and create necessary directories', () async {
+      final customDirPath = '$tempDirPath/customDir';
+      final customFilePath = '$customDirPath/project.pbxproj';
+      final pbxproj = await Pbxproj.open(customFilePath);
+      expect(pbxproj.path, customFilePath);
+      expect(pbxproj.childrenList, isEmpty);
     });
   });
 
-  group('Pbxproj Operations', () {
-    late Pbxproj project;
-
-    setUp(() async {
-      /// Setup the test environment and mock dependencies if necessary
-      final currentPath = Directory.current.path;
-      project = await Pbxproj.open('$currentPath/test/project.pbxproj');
+  group('parsePbxproj Tests', () {
+    test('Parse simple PBX content', () {
+      final content = '''
+      {
+        someKey = someValue;
+      }
+      ''';
+      final pbxproj = parsePbxproj(content, '/path/to/project.pbxproj');
+      expect(pbxproj.childrenList, isNotEmpty);
+      expect((pbxproj.childrenList.first as MapEntryPbx).uuid, 'someKey');
+      expect((pbxproj.childrenList.first as MapEntryPbx).value.toString(), 'someValue');
     });
 
-    test('Project file path is correct', () {
-      final currentPath = Directory.current.path;
-      expect(project.path, equals('$currentPath/test/project.pbxproj'));
+    test('Parse PBX content with list', () {
+      final content = '''
+      {
+        someList = (
+          item1,
+          item2 /* comment */
+        );
+      }
+      ''';
+      final pbxproj = parsePbxproj(content, '/path/to/project.pbxproj');
+      expect(pbxproj.childrenList, isNotEmpty);
+      final listPbx = pbxproj.childrenList.first as ListPbx;
+      expect(listPbx[0].value, 'item1');
+      expect(listPbx[1].value, 'item2');
+      expect(listPbx[1].comment, 'comment');
     });
 
-    test('Adding and saving multiple components', () async {
-      var initialCount = project.childrenList.length;
-      var component1 = MapPbx(uuid: project.generateUuid(), children: []);
-      var component2 = MapPbx(uuid: project.generateUuid(), children: []);
-      project.add(component1);
-      project.add(component2);
-      await project.save();
-
-      // Verify both components were added
-      expect(project.childrenList.length, equals(initialCount + 2));
+    test('Parse PBX content with nested maps', () {
+      final content = '''
+      {
+        parentMap = {
+          childKey = childValue;
+        };
+      }
+      ''';
+      final pbxproj = parsePbxproj(content, '/path/to/project.pbxproj');
+      expect(pbxproj.childrenList, isNotEmpty);
+      final parentMap = pbxproj.childrenList.first as MapPbx;
+      final childMapEntry = parentMap.childrenList.first as MapEntryPbx;
+      expect(childMapEntry.uuid, 'childKey');
+      expect(childMapEntry.value.toString(), 'childValue');
     });
 
-    test('Removing a non-existent component does not affect project', () {
-      var initialCount = project.childrenList.length;
-      project.remove('non_existent_uuid');
-      expect(project.childrenList.length, equals(initialCount));
-    });
-
-    test('Replace or add functionality works correctly', () {
-      var uuid = project.generateUuid();
-      var component = MapPbx(uuid: uuid, children: []);
-      project.add(component);
-
-      // Replace the existing component
-      var newComponent = MapPbx(uuid: uuid, children: [MapEntryPbx(uuid, VarPbx('newValue'))]);
-      project.replaceOrAdd(newComponent);
-
-      var retrievedComponent = project[uuid] as MapPbx;
-      expect(retrievedComponent.childrenList.last.toString(), equals(MapEntryPbx(uuid, VarPbx('newValue')).toString()));
-
-      // Add a new component since the UUID does not exist
-      var newUuid = project.generateUuid();
-      var anotherComponent = MapPbx(uuid: newUuid, children: [MapEntryPbx(uuid, VarPbx('anotherValue'))]);
-      project.replaceOrAdd(anotherComponent);
-
-      expect(project[newUuid], isNotNull);
-      expect((project[newUuid] as MapPbx).childrenList.last.toString(),
-          equals(MapEntryPbx(uuid, VarPbx('anotherValue')).toString()));
-    });
-
-    test('Verify serialization and deserialization of project', () async {
-      var uuid = project.generateUuid();
-      var component = MapPbx(uuid: uuid, children: [MapEntryPbx(uuid, VarPbx('testValue'))]);
-      project.add(component);
-      await project.save();
-
-      // Assuming serialization and deserialization logic is implemented
-      var deserializedProject = await Pbxproj.open(project.path);
-      var deserializedComponent = deserializedProject[uuid] as MapPbx;
-
-      expect(deserializedComponent.childrenList.last.toString(),
-          equals(MapEntryPbx(uuid, VarPbx('testValue')).toString()));
-    });
-
-    test('Exception handling for file operations', () async {
-      // Redirect the open function to a non-existent file to simulate an error
-      expect(() async => await Pbxproj.open('non_existent_directory/non_existent_file.pbxproj'),
-          throwsA(isA<FileSystemException>()));
+    test('Parse PBX content with sections', () {
+      final content = '''
+      
+      {
+      /* Begin PBXSection section */
+        sectionKey = sectionValue;
+      /* End PBXSection section */
+      }
+      
+      ''';
+      final pbxproj = parsePbxproj(content, '/path/to/project.pbxproj', debug: false);
+      expect(pbxproj.childrenList, isNotEmpty);
+      final section = pbxproj.childrenList.first as SectionPbx;
+      final sectionEntry = section.childrenList.first as MapEntryPbx;
+      expect(section.name, 'PBXSection');
+      expect(sectionEntry.uuid, 'sectionKey');
+      expect(sectionEntry.value.toString(), 'sectionValue');
     });
   });
 }

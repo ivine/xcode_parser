@@ -23,16 +23,14 @@ Pbxproj parsePbxproj(String content, String path, {bool debug = false}) {
     }
   }
 
-  final regexList =
-      RegExp(r'[a-zA-Z0-9_]+\s*(/\*.*?\*/\s*)?=\s*(?:/\*.*?\*/\s*)?\(');
+  final regexList = RegExp(r'[a-zA-Z0-9_]+\s*(/\*.*?\*/\s*)?=\s*(?:/\*.*?\*/\s*)?\(');
   final regexEntry = RegExp(
     r'^\s*(\w+)\s*(?:\/\*\s*[^*]*\*\/\s*)?=\s*(?:\/\*\s*[^*]*\*\/\s*)?"((?:\\.|[^"\\])*)"|([\w$%.\?!)(}{#@]+)\s*(?:\/\*\s*[^*]*\*\/)?;\s*$',
     multiLine: true,
     dotAll: true,
   );
 
-  final regexMap =
-      RegExp(r'[a-zA-Z0-9_]+\s*(/\*.*?\*/\s*)?=\s*(?:/\*.*?\*/\s*)?\{');
+  final regexMap = RegExp(r'[a-zA-Z0-9_]+\s*(/\*.*?\*/\s*)?=\s*(?:/\*.*?\*/\s*)?\{');
 
   int index = 0;
 
@@ -44,8 +42,7 @@ Pbxproj parsePbxproj(String content, String path, {bool debug = false}) {
     if (!current().startsWith(pattern)) {
       return;
     }
-    while (index < content.length &&
-        !content.substring(index).startsWith(pattern)) {
+    while (index < content.length && !content.substring(index).startsWith(pattern)) {
       index++;
     }
     index += pattern.length;
@@ -94,9 +91,7 @@ Pbxproj parsePbxproj(String content, String path, {bool debug = false}) {
         }
       }
     } else {
-      while (index < content.length &&
-          content[index] != '=' &&
-          content.substring(index, index + 2) != '/*') {
+      while (index < content.length && content[index] != '=' && content.substring(index, index + 2) != '/*') {
         key += content[index];
         index++;
       }
@@ -118,7 +113,6 @@ Pbxproj parsePbxproj(String content, String path, {bool debug = false}) {
     while (index < content.length) {
       if (isStringValue) {
         if (content[index] == ';' && endOfStringFound) {
-          index++;
           break;
         } else if (content[index] == '"') {
           // Встретили кавычку, следующий символ может быть завершающим
@@ -127,22 +121,16 @@ Pbxproj parsePbxproj(String content, String path, {bool debug = false}) {
         } else {
           // Продолжаем добавлять символы к строковому значению
           value += content[index];
-          endOfStringFound =
-              false; // Сброс флага, если это не была последняя кавычка
+          endOfStringFound = false; // Сброс флага, если это не была последняя кавычка
         }
       } else {
         // Для нестроковых значений, проверяем на комментарий или точку с запятой
-        if (content.substring(index, index + 2) == '/*' ||
-            content[index] == ';') {
+        if (content.substring(index, index + 2) == '/*' || content[index] == ';') {
           break;
         } else {
           value += content[index];
         }
       }
-      index++;
-    }
-    // Пропускаем точку с запятой в конце нестрокового значения, если она есть
-    if (!isStringValue && index < content.length && content[index] == ';') {
       index++;
     }
     printD('ParseVar: ${value.trim()}');
@@ -151,9 +139,7 @@ Pbxproj parsePbxproj(String content, String path, {bool debug = false}) {
 
   String parseValOfList() {
     String value = '';
-    while (index < content.length &&
-        content[index] != ',' &&
-        content.substring(index, index + 2) != '/*') {
+    while (index < content.length && content[index] != ',' && content.substring(index, index + 2) != '/*') {
       value += content[index];
       index++;
     }
@@ -162,14 +148,12 @@ Pbxproj parsePbxproj(String content, String path, {bool debug = false}) {
 
   String parseComment() {
     String comment = '';
-    while (
-        index < content.length && !content.substring(index).startsWith('/*')) {
+    while (index < content.length && !content.substring(index).startsWith('/*')) {
       index++;
     }
     index += 2;
 
-    while (
-        index < content.length && !content.substring(index).startsWith('*/')) {
+    while (index < content.length && !content.substring(index).startsWith('*/')) {
       comment += content[index];
       index++;
     }
@@ -180,8 +164,7 @@ Pbxproj parsePbxproj(String content, String path, {bool debug = false}) {
 
   CommentPbx parseCommentLine() {
     String comment = '';
-    while (
-        index < content.length && !content.substring(index).startsWith('\n')) {
+    while (index < content.length && !content.substring(index).startsWith('\n')) {
       comment += content[index];
       index++;
     }
@@ -259,8 +242,7 @@ Pbxproj parsePbxproj(String content, String path, {bool debug = false}) {
     String? comment;
     if (content.substring(index).trim().startsWith('/*')) {
       comment = parseComment();
-      printD(
-          'M FOUND key Comment : $comment\nM Out comment: ${current().substring(0, 30)}');
+      printD('M FOUND key Comment : $comment\nM Out comment: ${current().substring(0, 30)}');
       index++;
     }
     index++;
@@ -321,7 +303,6 @@ Pbxproj parsePbxproj(String content, String path, {bool debug = false}) {
           children.add(sectionPbx);
           sectionPbx = null;
         }
-
         printD('M END Comment $comment');
         index += 2;
       } else {
@@ -334,35 +315,64 @@ Pbxproj parsePbxproj(String content, String path, {bool debug = false}) {
 
   MapPbx parsePbxproj() {
     List<NamedComponent> children = [];
+    SectionPbx? sectionPbx;
+
+    addChild(NamedComponent component) {
+      if (sectionPbx != null) {
+        sectionPbx.add(component);
+      } else {
+        children.add(component);
+      }
+    }
+
     while (index < content.length) {
       skipPattern(';');
       if (content.substring(index).trim().startsWith('{')) {
         printD('J FOUND {');
-        index++;
+        skipPattern('{');
       } else if (content.substring(index).trim().startsWith(regexEntry)) {
         printD('J FOUND Entry');
-        children.add(parseEntry());
+        addChild(parseEntry());
       } else if (content.substring(index).trim().startsWith(regexList)) {
         printD('J FOUND List');
-        children.add(parseList());
+        addChild(parseList());
       } else if (content.substring(index).trim().startsWith(regexMap)) {
         printD('J FOUND Map');
         index++;
-        children.add(parseMap());
+        addChild(parseMap());
       } else if (current().startsWith('//')) {
         printD('J FOUND comment //');
         index += 2;
         parseCommentLine();
         // children.add(parseCommentLine());
+      } else if (current().startsWith('/*')) {
+        printD('J FOUND Comment /*');
+        final comment = parseComment();
+        final begin = checkBeginSection(comment);
+        final end = checkEndSection(comment);
+        if (begin != null) {
+          sectionPbx = SectionPbx(name: begin, children: []);
+          printD('J Begin Section /* $comment */');
+        } else if (end != null && sectionPbx != null) {
+          children.add(sectionPbx);
+          sectionPbx = null;
+          printD('J End Section /* $comment */');
+        } else {
+          index += 2;
+          continue;
+        }
+        index += 2;
       } else if (current().startsWith('}')) {
         printD('J FOUND }');
         index++;
         break;
       } else {
         printD('J FOUND Entry FallBack');
-        children.add(parseEntry());
+        addChild(parseEntry());
       }
     }
+
+    printD('J END');
     return MapPbx(uuid: '', children: children);
   }
 

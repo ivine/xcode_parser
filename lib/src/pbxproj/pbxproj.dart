@@ -55,7 +55,7 @@ class Pbxproj extends ChildrenComponent {
   static Future<Pbxproj> open(String path) async {
     final file = File(path);
     if (!await file.exists()) {
-      await file.create();
+      await file.create(recursive: true);
     }
     final content = await file.readAsString();
     if (content.isEmpty) {

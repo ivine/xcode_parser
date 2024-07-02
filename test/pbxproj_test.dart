@@ -83,6 +83,8 @@ void main() {
 
     test('Generate unique UUID', () {
       final uuid = pbxproj.generateUuid();
+      final uuid2 = pbxproj.generateUuid();
+      expect(uuid, isNot(uuid2));
       expect(uuid, isNotNull);
       expect(uuid.length, 24);
     });
