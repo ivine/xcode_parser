@@ -93,7 +93,7 @@ void main() {
     test('Parse PBX content with nested maps', () {
       final content = '''
       {
-        parentMap = /* comment */ {
+        parentMap        = /* comment */ {
           childKey = childValue;
         };
       }
