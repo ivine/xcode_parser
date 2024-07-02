@@ -66,7 +66,7 @@ void main() {
       );
       pbxproj.replaceOrAdd(newComponent);
       expect(pbxproj.childrenList, contains(newComponent));
-      expect(pbxproj.childrenMap[component.uuid], newComponent);
+      expect(pbxproj[component.uuid], newComponent);
     });
 
     test('Find NamedComponent by UUID', () {
