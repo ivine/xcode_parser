@@ -39,7 +39,7 @@ files, which is especially useful for automating iOS development tasks.
 Incorporate the package into your Dart or Flutter project by adding it as a dependency in your `pubspec.yaml` file:
 ```yaml
 dependencies:
-  xcode_parser: ^1.1.1
+  xcode_parser: ^1.1.4
 ```
 or
 ```shell

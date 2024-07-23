@@ -1,15 +1,17 @@
 abstract class PbxprojComponent {
+  String formatOutput(String output) {
+    return output.replaceAll(RegExp(r'\n+'), '\n');
+  }
+
   @override
   String toString({int indentLevel = 0, bool removeN = false});
 
   PbxprojComponent copyWith();
 
-  String childrenToString(List<NamedComponent> children,
-      {int indentLevel = 0, bool removeN = false}) {
+  String childrenToString(List<NamedComponent> children, {int indentLevel = 0, bool removeN = false}) {
     String sb = '';
     for (int i = 0; i < children.length; i++) {
-      sb += (children[i].toString(
-          indentLevel: removeN ? 0 : (indentLevel + 1), removeN: removeN));
+      sb += (children[i].toString(indentLevel: removeN ? 0 : (indentLevel + 1), removeN: removeN));
     }
     return sb.toString();
   }

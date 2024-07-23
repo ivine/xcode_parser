@@ -1,5 +1,6 @@
+## 1.1.4
 
-
+- Updated output formatter
 
 ## 1.1.1
 

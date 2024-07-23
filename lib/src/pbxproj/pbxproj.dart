@@ -72,7 +72,7 @@ class Pbxproj extends ChildrenComponent {
     if (!await file.exists()) {
       await file.create();
     }
-    await file.writeAsString(toString());
+    await file.writeAsString(formatOutput(toString()));
   }
 
   /// The [generateUuid] method generates a unique identifier (UUID) by
@@ -87,8 +87,7 @@ class Pbxproj extends ChildrenComponent {
   String generateUuid() {
     const chars = '0123456789ABCDEF';
     final rand = Random();
-    final uuid =
-        List.generate(24, (index) => chars[rand.nextInt(chars.length)]).join();
+    final uuid = List.generate(24, (index) => chars[rand.nextInt(chars.length)]).join();
     return _checkUuid(uuid);
   }
 
