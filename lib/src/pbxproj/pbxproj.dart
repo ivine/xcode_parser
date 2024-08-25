@@ -1,4 +1,4 @@
-import 'dart:io';
+import 'dart:io' as io;
 import 'dart:math';
 
 import 'package:xcode_parser/src/pbxproj/interfaces/base_components.dart';
@@ -16,8 +16,18 @@ class Pbxproj extends ChildrenComponent {
 
   Pbxproj({
     super.children,
-    required this.path,
+    this.path = "project.pbxproj",
   });
+
+  /// Parses a [Pbxproj] file's [content]
+  ///
+  /// An empty [Pbxproj] is created if [content] is empty.
+  factory Pbxproj.parse(String content) {
+    if (content.isEmpty) {
+      return Pbxproj();
+    }
+    return parsePbxproj(content, debug: false);
+  }
 
   @override
   String toString({int indentLevel = 0, bool removeN = false}) {
@@ -37,7 +47,6 @@ class Pbxproj extends ChildrenComponent {
   }) {
     return Pbxproj(
       children: children ?? childrenList,
-      path: path ?? this.path,
     );
   }
 
@@ -52,8 +61,10 @@ class Pbxproj extends ChildrenComponent {
   /// function with the content, the path, and [debug] : false as arguments.
   /// The [parsePbxproj] function is likely a custom function that parses
   /// the content of the file and returns a [Pbxproj] object.
+  ///
+  /// This method is not available on Web
   static Future<Pbxproj> open(String path) async {
-    final file = File(path);
+    final file = io.File(path);
     if (!await file.exists()) {
       await file.create(recursive: true);
     }
@@ -61,14 +72,16 @@ class Pbxproj extends ChildrenComponent {
     if (content.isEmpty) {
       return Pbxproj(path: path);
     }
-    return parsePbxproj(content, path, debug: false);
+    return parsePbxproj(content, path: path, debug: false);
   }
 
   /// [save] defines a save method in the [Pbxproj] class.
   /// It creates a [File] object from a specified [path] and writes
   /// the result of calling the [toString] method into the file asynchronously.
+  ///
+  /// This method is not available on Web
   Future<void> save() async {
-    final file = File(path);
+    final file = io.File(path);
     if (!await file.exists()) {
       await file.create();
     }
@@ -87,7 +100,8 @@ class Pbxproj extends ChildrenComponent {
   String generateUuid() {
     const chars = '0123456789ABCDEF';
     final rand = Random();
-    final uuid = List.generate(24, (index) => chars[rand.nextInt(chars.length)]).join();
+    final uuid =
+        List.generate(24, (index) => chars[rand.nextInt(chars.length)]).join();
     return _checkUuid(uuid);
   }
 

@@ -1,3 +1,8 @@
+## 2.0.0
+
+- Added Web support
+- Pbxproj.path is no longer required (defaults to "project.pbxproj") for backwards compatibility
+
 ## 1.1.4
 
 - Updated output formatter
