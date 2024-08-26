@@ -22,11 +22,14 @@ class Pbxproj extends ChildrenComponent {
   /// Parses a [Pbxproj] file's [content]
   ///
   /// An empty [Pbxproj] is created if [content] is empty.
-  factory Pbxproj.parse(String content) {
+  factory Pbxproj.parse(
+    String content, {
+    String path = "project.pbxproj",
+  }) {
     if (content.isEmpty) {
       return Pbxproj();
     }
-    return parsePbxproj(content, debug: false);
+    return parsePbxproj(content, path: path, debug: false);
   }
 
   @override
