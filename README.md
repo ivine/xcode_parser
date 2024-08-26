@@ -78,7 +78,8 @@ during parsing, it is recommended to use
 isolates to prevent blocking the main thread.
 ```
 
-- `static Future<Pbxproj> open(String path)` - Opens and analyzes the .pbxproj file at the specified path. Parameter path - path to the .pbxproj file. Returns: Future<Pbxproj> — an asynchronous result that contains an instance of Pbxproj after reading and analyzing the file.
+- `factory Pbxproj.parse(String content, {String path})` - Analyzes the given .pbxproj file content. Parameter path - optional path to the .pbxproj file to be outputted. Returns: `Pbxproj` — an instance of Pbxproj after analyzing the content
+- `static Future<Pbxproj> open(String path)` - Opens and analyzes the .pbxproj file at the specified path. Parameter path - path to the .pbxproj file. Returns: `Future<Pbxproj>` — an asynchronous result that contains an instance of Pbxproj after reading and analyzing the file.
 - `Future<void> save()` - Saves the current state of the Pbxproj object back to the .pbxproj file.
 - `String generateUuid()` - Generates a unique identifier (UUID), which can be used for new project components.
 - `void add(NamedComponent component)` - Adds a new component to the project.
