@@ -17,9 +17,9 @@ import 'package:xcode_parser/src/pbxproj/pbxproj.dart';
 /// create a [Pbxproj] object based on the provided [path]. The debug parameter
 /// is used for debugging purposes and is set to 'false' by default.
 Pbxproj parsePbxproj(
-  String content, {
+  String content,
+  String path, {
   bool debug = false,
-  String path = "project.pbxproj",
 }) {
   printD(Object? object) {
     if (debug) {

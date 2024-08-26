@@ -1,7 +1,6 @@
 ## 1.2.0
 
 - Added Web support
-- Pbxproj.path is no longer required (defaults to "project.pbxproj" for backwards compatibility)
 - Added Pbxproj.parse constructor which parses the given Pbxproj content as a String
 - Fixed index out of bounds error
 

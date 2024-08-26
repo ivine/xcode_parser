@@ -16,7 +16,7 @@ class Pbxproj extends ChildrenComponent {
 
   Pbxproj({
     super.children,
-    this.path = "project.pbxproj",
+    required this.path,
   });
 
   /// Parses a [Pbxproj] file's [content]
@@ -27,9 +27,9 @@ class Pbxproj extends ChildrenComponent {
     String path = "project.pbxproj",
   }) {
     if (content.isEmpty) {
-      return Pbxproj();
+      return Pbxproj(path: path);
     }
-    return parsePbxproj(content, path: path, debug: false);
+    return parsePbxproj(content, path, debug: false);
   }
 
   @override
@@ -50,6 +50,7 @@ class Pbxproj extends ChildrenComponent {
   }) {
     return Pbxproj(
       children: children ?? childrenList,
+      path: path ?? this.path,
     );
   }
 
@@ -75,7 +76,7 @@ class Pbxproj extends ChildrenComponent {
     if (content.isEmpty) {
       return Pbxproj(path: path);
     }
-    return parsePbxproj(content, path: path, debug: false);
+    return parsePbxproj(content, path, debug: false);
   }
 
   /// [save] defines a save method in the [Pbxproj] class.

@@ -68,7 +68,7 @@ void main() {
         someKey = someValue;
       }
       ''';
-      final pbxproj = parsePbxproj(content, path: '/path/to/project.pbxproj');
+      final pbxproj = parsePbxproj(content, '/path/to/project.pbxproj');
       expect(pbxproj.childrenList, isNotEmpty);
       expect((pbxproj.childrenList.first as MapEntryPbx).uuid, 'someKey');
       expect((pbxproj.childrenList.first as MapEntryPbx).value.toString(),
@@ -90,7 +90,7 @@ void main() {
         );
       }
       ''';
-      final pbxproj = parsePbxproj(content, path: '/path/to/project.pbxproj');
+      final pbxproj = parsePbxproj(content, '/path/to/project.pbxproj');
       expect(pbxproj.childrenList, isNotEmpty);
       final listPbx = pbxproj.find<ListPbx>('someList');
       expect(listPbx, isNotNull);
@@ -149,7 +149,7 @@ void main() {
       );
 
       final pbxproj =
-          parsePbxproj(content, path: '/path/to/project.pbxproj', debug: true);
+          parsePbxproj(content, '/path/to/project.pbxproj', debug: true);
       expect(pbxproj.childrenList, isNotEmpty);
 
       final parentMap = pbxproj.find<MapPbx>('parentMap');
@@ -183,7 +183,7 @@ void main() {
       }
       
       ''';
-      final pbxproj = parsePbxproj(content, path: '/path/to/project.pbxproj');
+      final pbxproj = parsePbxproj(content, '/path/to/project.pbxproj');
       expect(pbxproj.childrenList, isNotEmpty);
       final section = pbxproj.childrenList.first as SectionPbx;
       final sectionEntry = section.childrenList.first as MapEntryPbx;
