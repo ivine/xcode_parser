@@ -1,4 +1,5 @@
 import 'dart:io';
+
 import 'package:test/test.dart';
 import 'package:xcode_parser/xcode_parser.dart';
 
@@ -30,6 +31,18 @@ void main() {
       final file = File(tempFilePath);
       await file.writeAsString('// !\$*UTF8*\$!\n{}');
       final openedProject = await Pbxproj.open(tempFilePath);
+      expect(openedProject.path, tempFilePath);
+
+      expect(
+          openedProject.childrenList.toString(),
+          [
+            CommentPbx('!\$*UTF8*\$!'),
+          ].toString());
+    });
+
+    test('Open Pbxproj file from string', () {
+      final openedProject =
+          Pbxproj.parse('// !\$*UTF8*\$!\n{}', path: tempFilePath);
       expect(openedProject.path, tempFilePath);
 
       expect(
