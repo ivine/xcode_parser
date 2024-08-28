@@ -1,3 +1,8 @@
+## 1.2.0
+
+- Added Web support with Pbxproj.parse constructor to parse the String Pbxproj content
+- Fixed index out of bounds error
+
 ## 1.1.4
 
 - Updated output formatter
@@ -16,10 +21,3 @@
 ## 1.0.0
 
 - Initial version.
-
-
-
-
-
-
-

@@ -148,7 +148,8 @@ Pbxproj parsePbxproj(String content, String path, {bool debug = false}) {
     String value = '';
     while (index < content.length &&
         content[index] != ',' &&
-        content.substring(index, index + 2) != '/*') {
+        (index == content.length - 1 ||
+            content.substring(index, index + 2) != '/*')) {
       value += content[index];
       index++;
     }
