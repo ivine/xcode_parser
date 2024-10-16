@@ -5,7 +5,7 @@ repository: https://github.com/EclipseAndrey/xcode_parser
 homepage: https://github.com/EclipseAndrey/xcode_parser
 
 environment:
-  sdk: ^3.4.0
+  sdk: ^3.3.0
 
 # Add regular dependencies here.
 dependencies:
