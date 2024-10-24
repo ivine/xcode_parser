@@ -1,4 +1,4 @@
-import 'package:xcode_parser/xcode_parser.dart';
+import 'package:xcode_parser1/xcode_parser1.dart';
 
 void main() async {
   Pbxproj project = Pbxproj(path: 'ios/Runner.xcodeproj/project.pbxproj');
@@ -54,8 +54,7 @@ void addFramework(Pbxproj project) {
       MapEntryPbx('isa', VarPbx('PBXGroup')),
       ListPbx('children', [
         ElementOfListPbx(uuidFrameworkName, comment: 'FrameworkName.framework'),
-        ElementOfListPbx(uuidFramework2Name,
-            comment: 'Framework2Name.framework'),
+        ElementOfListPbx(uuidFramework2Name, comment: 'Framework2Name.framework'),
       ]),
     ],
   );

@@ -1,19 +1,19 @@
 <p align="center">
-    <a href="https://pub.dev/packages/xcode_parser" align="center">
-        <img src="https://github.com/EclipseAndrey/xcode_parser/blob/main/xc_logo_big.png?raw=true" width="4000px">
+    <a href="https://pub.dev/packages/xcode_parser1" align="center">
+        <img src="https://github.com/EclipseAndrey/xcode_parser1/blob/main/xc_logo_big.png?raw=true" width="4000px">
     </a>
 </p>
 <p align="center">
-  <a href="https://codecov.io/gh/EclipseAndrey/xcode_parser"><img src="https://codecov.io/gh/EclipseAndrey/xcode_parser/branch/main/graph/badge.svg" alt="codecov"></a>
-  <a href="https://github.com/EclipseAndrey/xcode_parser/actions"><img src="https://github.com/EclipseAndrey/xcode_parser/actions/workflows/dart.yml/badge.svg" alt="xcode_parser"></a>
-  <a href="https://github.com/EclipseAndrey/xcode_parser/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License: MIT"></a>
+  <a href="https://codecov.io/gh/EclipseAndrey/xcode_parser1"><img src="https://codecov.io/gh/EclipseAndrey/xcode_parser1/branch/main/graph/badge.svg" alt="codecov"></a>
+  <a href="https://github.com/EclipseAndrey/xcode_parser1/actions"><img src="https://github.com/EclipseAndrey/xcode_parser1/actions/workflows/dart.yml/badge.svg" alt="xcode_parser1"></a>
+  <a href="https://github.com/EclipseAndrey/xcode_parser1/blob/main/LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License: MIT"></a>
 </p>
 
 
 
 <p align="center">
-    <a href="https://github.com/EclipseAndrey/xcode_parser/issues/new" align="center">
-        <img src="https://github.com/EclipseAndrey/xcode_parser/blob/main/wrong_button.png?raw=true" width="300px">
+    <a href="https://github.com/EclipseAndrey/xcode_parser1/issues/new" align="center">
+        <img src="https://github.com/EclipseAndrey/xcode_parser1/blob/main/wrong_button.png?raw=true" width="300px">
     </a>
 </p>
 
@@ -32,18 +32,18 @@ files, which is especially useful for automating iOS development tasks.
 
 | Dart                                                                                    | example.pbxproj                                                                       |
 |-----------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------|
-| ![before](https://github.com/EclipseAndrey/xcode_parser/blob/main/sc_dart.png?raw=true) | ![before](https://github.com/EclipseAndrey/xcode_parser/blob/main/sc_xc.png?raw=true) |
+| ![before](https://github.com/EclipseAndrey/xcode_parser1/blob/main/sc_dart.png?raw=true) | ![before](https://github.com/EclipseAndrey/xcode_parser1/blob/main/sc_xc.png?raw=true) |
 
 ## Installation
 
 Incorporate the package into your Dart or Flutter project by adding it as a dependency in your `pubspec.yaml` file:
 ```yaml
 dependencies:
-  xcode_parser: ^1.2.1
+  xcode_parser1: ^1.2.1
 ```
 or
 ```shell
-dart pub add xcode_parser
+dart pub add xcode_parser1
 ```
 
 # Index
@@ -119,7 +119,7 @@ void main() async {
 
 ### SectionPbx
 
-`SectionPbx` is a specialized component within the xcode_parser
+`SectionPbx` is a specialized component within the xcode_parser1
 library that manages sections in Xcode project files (`*.pbxproj`). 
 Sections in such files usually contain groups of related elements, such 
 as source files, build configurations, resources, etc.
@@ -155,7 +155,7 @@ void main() {
 
 ### MapPbx
 
-`MapPbx` is a component of the `xcode_parser` library designed to 
+`MapPbx` is a component of the `xcode_parser1` library designed to 
 manage mappings in Xcode project files (`*.pbxproj`).
 
 #### Methods
@@ -194,7 +194,7 @@ void main() {
 
 ### MapEntryPbx
 
-`MapEntryPbx` is a component of the `xcode_parser` library
+`MapEntryPbx` is a component of the `xcode_parser1` library
 designed to represent individual entries within the mappings of Xcode
 project files (`*.pbxproj`). This component is used to store key-value pairs,
 where each key is represented by a UUID and the value can be any component
@@ -228,7 +228,7 @@ void main() {
 }
 ```
 ### VarPbx
-`VarPbx` is a component of the `xcode_parser` library used
+`VarPbx` is a component of the `xcode_parser1` library used
 to represent parameter values in Xcode project files (`*.pbxproj`).
 This component is designed to store simple data such as strings,
 numbers, or boolean values that are part of the Xcode project configuration.
@@ -259,7 +259,7 @@ void main() {
 
 ### ElementOfListPbx
 
-`ElementOfListPbx` is a component of the `xcode_parser` library
+`ElementOfListPbx` is a component of the `xcode_parser1` library
 intended to represent elements in a list used in Xcode project files (`*.pbxproj`).
 This component is typically used to represent values in lists of parameters,
 such as a list of source files, resources, and other group settings.
@@ -293,7 +293,7 @@ void main() {
 ```
 
 ### ListPbx
-`ListPbx` is a component of the `xcode_parser` library designed to
+`ListPbx` is a component of the `xcode_parser1` library designed to
 manage lists in Xcode project files (`*.pbxproj`). This component
 is used to represent arrays of values, such as files,
 configurations, and other collections of elements related to the project.

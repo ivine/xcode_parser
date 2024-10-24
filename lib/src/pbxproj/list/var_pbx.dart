@@ -1,4 +1,4 @@
-import 'package:xcode_parser/src/pbxproj/interfaces/base_components.dart';
+import 'package:xcode_parser1/src/pbxproj/interfaces/base_components.dart';
 
 class VarPbx extends PbxprojComponent {
   final String value;

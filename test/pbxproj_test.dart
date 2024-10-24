@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:test/test.dart';
-import 'package:xcode_parser/xcode_parser.dart';
+import 'package:xcode_parser1/xcode_parser1.dart';
 
 void main() {
   group('Pbxproj Tests', () {
@@ -41,8 +41,7 @@ void main() {
     });
 
     test('Open Pbxproj file from string', () {
-      final openedProject =
-          Pbxproj.parse('// !\$*UTF8*\$!\n{}', path: tempFilePath);
+      final openedProject = Pbxproj.parse('// !\$*UTF8*\$!\n{}', path: tempFilePath);
       expect(openedProject.path, tempFilePath);
 
       expect(

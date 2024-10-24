@@ -1,5 +1,5 @@
 import 'package:test/test.dart';
-import 'package:xcode_parser/xcode_parser.dart';
+import 'package:xcode_parser1/xcode_parser1.dart';
 
 void main() {
   group('SectionPbx Tests', () {
@@ -48,8 +48,7 @@ void main() {
 
     test('Find NamedComponent by Comment', () {
       section.add(component);
-      final foundComponent =
-          section.findComment<MapEntryPbx<VarPbx>>('TestComment');
+      final foundComponent = section.findComment<MapEntryPbx<VarPbx>>('TestComment');
       expect(foundComponent, component);
     });
 

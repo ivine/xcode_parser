@@ -1,7 +1,7 @@
 import 'dart:collection';
 
 import 'package:collection/collection.dart';
-import 'package:xcode_parser/src/pbxproj/interfaces/base_components.dart';
+import 'package:xcode_parser1/src/pbxproj/interfaces/base_components.dart';
 
 abstract class IChildrenNamedComponent extends NamedComponent {
   /// Getters
@@ -82,19 +82,14 @@ abstract class ChildrenNamedComponent extends IChildrenNamedComponent {
 
   @override
   String toString({int indentLevel = 0, bool removeN = false}) =>
-      childrenToString(childrenList,
-          indentLevel: indentLevel, removeN: removeN);
+      childrenToString(childrenList, indentLevel: indentLevel, removeN: removeN);
 
   @override
-  T? find<T extends NamedComponent>(String key) =>
-      _childrenList.firstWhereOrNull((test) => test.uuid == key && test is T)
-          as T?;
+  T? find<T extends NamedComponent>(String key) => _childrenList.firstWhereOrNull((test) => test.uuid == key && test is T) as T?;
 
   @override
   T? findComment<T extends NamedComponent>(String comment) =>
-      _childrenList.firstWhereOrNull(
-              (test) => (test.comment?.contains(comment) ?? false) && test is T)
-          as T?;
+      _childrenList.firstWhereOrNull((test) => (test.comment?.contains(comment) ?? false) && test is T) as T?;
 
   @override
   void add(NamedComponent component) {
@@ -112,8 +107,7 @@ abstract class ChildrenNamedComponent extends IChildrenNamedComponent {
   void replaceOrAdd(NamedComponent component) {
     _childrenMap[component.uuid] = component;
     _childrenList.indexWhere((test) => test.uuid == component.uuid);
-    final indexInList =
-        _childrenList.indexWhere((test) => test.uuid == component.uuid);
+    final indexInList = _childrenList.indexWhere((test) => test.uuid == component.uuid);
     if (indexInList == -1) {
       _childrenList.add(component);
     } else {

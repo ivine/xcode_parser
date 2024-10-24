@@ -1,8 +1,8 @@
 import 'dart:io';
 
 import 'package:test/test.dart';
-import 'package:xcode_parser/src/pbxproj/pbxproj_parse.dart';
-import 'package:xcode_parser/xcode_parser.dart';
+import 'package:xcode_parser1/src/pbxproj/pbxproj_parse.dart';
+import 'package:xcode_parser1/xcode_parser1.dart';
 
 void main() {
   group('Pbxproj.open Tests', () {
@@ -71,8 +71,7 @@ void main() {
       final pbxproj = parsePbxproj(content, '/path/to/project.pbxproj');
       expect(pbxproj.childrenList, isNotEmpty);
       expect((pbxproj.childrenList.first as MapEntryPbx).uuid, 'someKey');
-      expect((pbxproj.childrenList.first as MapEntryPbx).value.toString(),
-          'someValue');
+      expect((pbxproj.childrenList.first as MapEntryPbx).value.toString(), 'someValue');
     });
 
     test('Parse PBX content with list', () {
@@ -148,8 +147,7 @@ void main() {
         ],
       );
 
-      final pbxproj =
-          parsePbxproj(content, '/path/to/project.pbxproj', debug: true);
+      final pbxproj = parsePbxproj(content, '/path/to/project.pbxproj', debug: true);
       expect(pbxproj.childrenList, isNotEmpty);
 
       final parentMap = pbxproj.find<MapPbx>('parentMap');

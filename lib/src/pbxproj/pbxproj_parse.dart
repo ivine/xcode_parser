@@ -1,12 +1,12 @@
-import 'package:xcode_parser/src/pbxproj/interfaces/base_components.dart';
-import 'package:xcode_parser/src/pbxproj/list/element_of_list_pbx.dart';
-import 'package:xcode_parser/src/pbxproj/list/list_pbx.dart';
-import 'package:xcode_parser/src/pbxproj/list/var_pbx.dart';
-import 'package:xcode_parser/src/pbxproj/map/map_entry_pbx.dart';
-import 'package:xcode_parser/src/pbxproj/map/map_pbx.dart';
-import 'package:xcode_parser/src/pbxproj/map/section_pbx.dart';
-import 'package:xcode_parser/src/pbxproj/other/comment_pbx.dart';
-import 'package:xcode_parser/src/pbxproj/pbxproj.dart';
+import 'package:xcode_parser1/src/pbxproj/interfaces/base_components.dart';
+import 'package:xcode_parser1/src/pbxproj/list/element_of_list_pbx.dart';
+import 'package:xcode_parser1/src/pbxproj/list/list_pbx.dart';
+import 'package:xcode_parser1/src/pbxproj/list/var_pbx.dart';
+import 'package:xcode_parser1/src/pbxproj/map/map_entry_pbx.dart';
+import 'package:xcode_parser1/src/pbxproj/map/map_pbx.dart';
+import 'package:xcode_parser1/src/pbxproj/map/section_pbx.dart';
+import 'package:xcode_parser1/src/pbxproj/other/comment_pbx.dart';
+import 'package:xcode_parser1/src/pbxproj/pbxproj.dart';
 
 /// The function is named [parsePbxproj] and it takes three parameters:
 /// [content] of type [String], [path] of type [String], and an optional
@@ -23,16 +23,14 @@ Pbxproj parsePbxproj(String content, String path, {bool debug = false}) {
     }
   }
 
-  final regexList =
-      RegExp(r'[a-zA-Z0-9_]+\s*(/\*.*?\*/\s*)?=\s*(?:/\*.*?\*/\s*)?\(');
+  final regexList = RegExp(r'[a-zA-Z0-9_]+\s*(/\*.*?\*/\s*)?=\s*(?:/\*.*?\*/\s*)?\(');
   // final regexEntry = RegExp(
   //   r'^\s*(\w+)\s*(?:\/\*\s*[^*]*\*\/\s*)?=\s*(?:\/\*\s*[^*]*\*\/\s*)?"((?:\\.|[^"\\])*)"|([\w$%.\?!)(}{#@]+)\s*(?:\/\*\s*[^*]*\*\/)?;\s*$',
   //   multiLine: true,
   //   dotAll: true,
   // );
 
-  final regexMap =
-      RegExp(r'[a-zA-Z0-9_]+\s*(/\*.*?\*/\s*)?=\s*(?:/\*.*?\*/\s*)?\{');
+  final regexMap = RegExp(r'[a-zA-Z0-9_]+\s*(/\*.*?\*/\s*)?=\s*(?:/\*.*?\*/\s*)?\{');
 
   int index = 0;
 
@@ -44,8 +42,7 @@ Pbxproj parsePbxproj(String content, String path, {bool debug = false}) {
     if (!current().startsWith(pattern)) {
       return;
     }
-    while (index < content.length &&
-        !content.substring(index).startsWith(pattern)) {
+    while (index < content.length && !content.substring(index).startsWith(pattern)) {
       index++;
     }
     index += pattern.length;
@@ -94,9 +91,7 @@ Pbxproj parsePbxproj(String content, String path, {bool debug = false}) {
         }
       }
     } else {
-      while (index < content.length &&
-          !current().startsWith('=') &&
-          !current().startsWith('/*')) {
+      while (index < content.length && !current().startsWith('=') && !current().startsWith('/*')) {
         key += content[index];
         index++;
       }
@@ -126,13 +121,11 @@ Pbxproj parsePbxproj(String content, String path, {bool debug = false}) {
         } else {
           // Продолжаем добавлять символы к строковому значению
           value += content[index];
-          endOfStringFound =
-              false; // Сброс флага, если это не была последняя кавычка
+          endOfStringFound = false; // Сброс флага, если это не была последняя кавычка
         }
       } else {
         // Для нестроковых значений, проверяем на комментарий или точку с запятой
-        if (content.substring(index, index + 2) == '/*' ||
-            content[index] == ';') {
+        if (content.substring(index, index + 2) == '/*' || content[index] == ';') {
           break;
         } else {
           value += content[index];
@@ -146,10 +139,8 @@ Pbxproj parsePbxproj(String content, String path, {bool debug = false}) {
 
   String parseValOfList() {
     String value = '';
-    while (index < content.length &&
-        content[index] != ',' &&
-        (index == content.length - 1 ||
-            content.substring(index, index + 2) != '/*')) {
+    while (
+        index < content.length && content[index] != ',' && (index == content.length - 1 || content.substring(index, index + 2) != '/*')) {
       value += content[index];
       index++;
     }
@@ -161,8 +152,7 @@ Pbxproj parsePbxproj(String content, String path, {bool debug = false}) {
   String parseComment() {
     String comment = '';
     skipPattern('/*');
-    while (
-        index < content.length && !content.substring(index).startsWith('*/')) {
+    while (index < content.length && !content.substring(index).startsWith('*/')) {
       comment += content[index];
       index++;
     }
@@ -177,8 +167,7 @@ Pbxproj parsePbxproj(String content, String path, {bool debug = false}) {
     }
     skipPattern('//');
     String comment = '';
-    while (
-        index < content.length && !content.substring(index).startsWith('\n')) {
+    while (index < content.length && !content.substring(index).startsWith('\n')) {
       comment += content[index];
       index++;
     }
@@ -258,8 +247,7 @@ Pbxproj parsePbxproj(String content, String path, {bool debug = false}) {
     skipPattern('=');
     if (current().startsWith('/*')) {
       comment = parseComment();
-      printD(
-          'M FOUND key Comment : $comment\nM after comment: ${current().substring(0, 30)}');
+      printD('M FOUND key Comment : $comment\nM after comment: ${current().substring(0, 30)}');
       index++;
     }
     index++;

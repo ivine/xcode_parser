@@ -1,4 +1,4 @@
-import 'package:xcode_parser/xcode_parser.dart';
+import 'package:xcode_parser1/xcode_parser1.dart';
 
 class CommentPbx extends NamedComponent {
   CommentPbx(String comment) : super(uuid: comment, comment: comment);

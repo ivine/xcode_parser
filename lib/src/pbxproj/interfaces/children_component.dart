@@ -1,7 +1,7 @@
 import 'dart:collection';
 
 import 'package:collection/collection.dart';
-import 'package:xcode_parser/src/pbxproj/interfaces/base_components.dart';
+import 'package:xcode_parser1/src/pbxproj/interfaces/base_components.dart';
 
 abstract class IChildrenComponent extends PbxprojComponent {
   /// Getters
@@ -58,8 +58,7 @@ abstract class IChildrenComponent extends PbxprojComponent {
   NamedComponent? operator [](String key);
 
   @override
-  String toString({int indentLevel = 0, bool removeN = false}) =>
-      childrenToString(childrenList, indentLevel: indentLevel);
+  String toString({int indentLevel = 0, bool removeN = false}) => childrenToString(childrenList, indentLevel: indentLevel);
 }
 
 abstract class ChildrenComponent extends IChildrenComponent {
@@ -83,15 +82,11 @@ abstract class ChildrenComponent extends IChildrenComponent {
   NamedComponent? operator [](String key) => _childrenMap[key];
 
   @override
-  T? find<T extends NamedComponent>(String key) =>
-      _childrenList.firstWhereOrNull((test) => test.uuid == key && test is T)
-          as T?;
+  T? find<T extends NamedComponent>(String key) => _childrenList.firstWhereOrNull((test) => test.uuid == key && test is T) as T?;
 
   @override
   T? findComment<T extends NamedComponent>(String comment) =>
-      _childrenList.firstWhereOrNull(
-              (test) => (test.comment?.contains(comment) ?? false) && test is T)
-          as T?;
+      _childrenList.firstWhereOrNull((test) => (test.comment?.contains(comment) ?? false) && test is T) as T?;
 
   @override
   void add(NamedComponent component) {
@@ -109,8 +104,7 @@ abstract class ChildrenComponent extends IChildrenComponent {
   void replaceOrAdd(NamedComponent component) {
     _childrenMap[component.uuid] = component;
     _childrenList.indexWhere((test) => test.uuid == component.uuid);
-    final indexInList =
-        _childrenList.indexWhere((test) => test.uuid == component.uuid);
+    final indexInList = _childrenList.indexWhere((test) => test.uuid == component.uuid);
     if (indexInList == -1) {
       _childrenList.add(component);
     } else {

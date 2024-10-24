@@ -1,7 +1,7 @@
-import 'package:xcode_parser/src/pbxproj/interfaces/base_components.dart';
-import 'package:xcode_parser/src/pbxproj/interfaces/children_named_component.dart';
-import 'package:xcode_parser/src/pbxproj/map/map_entry_pbx.dart';
-import 'package:xcode_parser/src/pbxproj/pbxproj.dart';
+import 'package:xcode_parser1/src/pbxproj/interfaces/base_components.dart';
+import 'package:xcode_parser1/src/pbxproj/interfaces/children_named_component.dart';
+import 'package:xcode_parser1/src/pbxproj/map/map_entry_pbx.dart';
+import 'package:xcode_parser1/src/pbxproj/pbxproj.dart';
 
 class MapPbx extends ChildrenNamedComponent {
   MapPbx({

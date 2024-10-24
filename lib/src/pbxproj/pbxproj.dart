@@ -1,9 +1,9 @@
 import 'dart:io' as io;
 import 'dart:math';
 
-import 'package:xcode_parser/src/pbxproj/interfaces/base_components.dart';
-import 'package:xcode_parser/src/pbxproj/interfaces/children_component.dart';
-import 'package:xcode_parser/src/pbxproj/pbxproj_parse.dart';
+import 'package:xcode_parser1/src/pbxproj/interfaces/base_components.dart';
+import 'package:xcode_parser1/src/pbxproj/interfaces/children_component.dart';
+import 'package:xcode_parser1/src/pbxproj/pbxproj_parse.dart';
 
 class Pbxproj extends ChildrenComponent {
   final String path;
@@ -101,8 +101,7 @@ class Pbxproj extends ChildrenComponent {
   String generateUuid() {
     const chars = '0123456789ABCDEF';
     final rand = Random();
-    final uuid =
-        List.generate(24, (index) => chars[rand.nextInt(chars.length)]).join();
+    final uuid = List.generate(24, (index) => chars[rand.nextInt(chars.length)]).join();
     return _checkUuid(uuid);
   }
 

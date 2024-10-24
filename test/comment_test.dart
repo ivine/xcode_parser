@@ -1,5 +1,5 @@
 import 'package:test/test.dart';
-import 'package:xcode_parser/xcode_parser.dart';
+import 'package:xcode_parser1/xcode_parser1.dart';
 
 void main() {
   group('CommentPbx Tests', () {

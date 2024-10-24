@@ -1,6 +1,6 @@
-import 'package:xcode_parser/src/pbxproj/interfaces/base_components.dart';
-import 'package:xcode_parser/src/pbxproj/list/element_of_list_pbx.dart';
-import 'package:xcode_parser/src/pbxproj/pbxproj.dart';
+import 'package:xcode_parser1/src/pbxproj/interfaces/base_components.dart';
+import 'package:xcode_parser1/src/pbxproj/list/element_of_list_pbx.dart';
+import 'package:xcode_parser1/src/pbxproj/pbxproj.dart';
 
 class ListPbx extends NamedComponent {
   final List<ElementOfListPbx> _children;
